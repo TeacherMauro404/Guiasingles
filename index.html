@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guías de Inglés · Instituto Marítimo de Valparaíso</title>
+<meta name="description" content="Guías y quizzes de inglés descargables en PDF para 1° a 4° Medio. Departamento de Inglés, Instituto Marítimo de Valparaíso.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A47; --navy2:#123A5E; --blue:#1F5C8B; --blue-soft:#E8F0F7;
+    --gold:#C8912B; --gold-soft:#F6ECD6; --ink:#152230; --muted:#5A6B7A;
+    --paper:#F5F8FB; --card:#FFFFFF; --line:#DCE5EE; --green:#1B7A3D; --green-soft:#E4F1E8;
+    --shadow:0 1px 2px rgba(16,42,71,.05),0 8px 24px rgba(16,42,71,.06);
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;overflow:hidden;color:#fff;
+    background:
+      radial-gradient(120% 140% at 88% -10%, #1a456e 0%, rgba(26,69,110,0) 55%),
+      linear-gradient(180deg,#0E2A47 0%, #0c2440 100%);
+  }
+  /* líneas de carta náutica */
+  .hero::before{
+    content:"";position:absolute;inset:0;opacity:.10;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px);
+    background-size:64px 64px, 64px 64px;
+    mask-image:radial-gradient(120% 120% at 20% 0%, #000 40%, transparent 78%);
+  }
+  .hero-inner{position:relative;padding:34px 0 30px}
+  .brandline{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  .brandmark{
+    width:38px;height:38px;flex:0 0 38px;border:1.5px solid rgba(255,255,255,.35);
+    border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.04)
+  }
+  .brandtext{font-weight:600;letter-spacing:.02em;font-size:14px}
+  .brandtext span{color:#9fc0dd;font-weight:500}
+  .eyebrow{
+    font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin:0 0 10px
+  }
+  .h1{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;
+    font-size:clamp(30px,5.4vw,52px);line-height:1.04;letter-spacing:-.01em;margin:0 0 12px;
+  }
+  .h1 em{font-style:italic;color:#e9c579}
+  .lead{max-width:560px;color:#c8d7e6;font-size:16.5px;margin:0 0 24px}
+
+  /* rosa de los vientos */
+  .compass{position:absolute;right:-40px;top:50%;transform:translateY(-50%);
+    width:300px;height:300px;opacity:.9;pointer-events:none}
+  @media(max-width:820px){.compass{display:none}}
+
+  /* buscador */
+  .searchbar{position:relative;max-width:560px}
+  .searchbar svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.6}
+  #q{
+    width:100%;padding:15px 16px 15px 46px;border-radius:12px;border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.97);color:var(--ink);font-size:16px;font-family:inherit;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+  }
+  #q::placeholder{color:#8496a6}
+  #q:focus{outline:3px solid var(--gold);outline-offset:1px}
+  .stat{display:flex;gap:22px;margin-top:18px;font-size:13.5px;color:#aec6dd}
+  .stat b{color:#fff;font-weight:600}
+  .stat .dot{color:var(--gold)}
+
+  /* ---------- FILTROS ---------- */
+  .filters{position:sticky;top:0;z-index:20;background:rgba(245,248,251,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .filters-inner{display:flex;flex-wrap:wrap;gap:18px;padding:14px 0;align-items:center}
+  .fgroup{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .flabel{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:2px}
+  .chip{
+    border:1px solid var(--line);background:#fff;color:var(--muted);
+    padding:6px 13px;border-radius:999px;font-size:13.5px;font-weight:500;cursor:pointer;
+    font-family:inherit;transition:all .15s ease;
+  }
+  .chip:hover{border-color:var(--blue);color:var(--blue)}
+  .chip[aria-pressed="true"]{background:var(--navy2);border-color:var(--navy2);color:#fff}
+  .chip:focus-visible{outline:2.5px solid var(--gold);outline-offset:1px}
+
+  /* ---------- GRID ---------- */
+  main{padding:26px 0 60px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 18px 16px;display:flex;flex-direction:column;gap:11px;
+    box-shadow:var(--shadow);transition:transform .16s ease,border-color .16s ease;
+    position:relative;
+  }
+  .card:hover{transform:translateY(-3px);border-color:#c3d3e2}
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .badges{display:flex;gap:6px;flex-wrap:wrap}
+  .lvl{font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:3px 9px;border-radius:6px;
+    background:var(--blue-soft);color:var(--blue)}
+  .cefr{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+  .cat{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+  .card h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;line-height:1.15;margin:0}
+  .card p{margin:0;font-size:14px;color:var(--muted)}
+  .card-actions{display:flex;gap:8px;margin-top:auto;padding-top:6px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;gap:7px;font-family:inherit;font-size:13.5px;font-weight:600;
+    padding:9px 14px;border-radius:9px;border:1px solid transparent;cursor:pointer;text-decoration:none;
+  }
+  .btn svg{flex:0 0 auto}
+  .btn-primary{background:var(--navy2);color:#fff}
+  .btn-primary:hover{background:var(--navy)}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--blue)}
+  .btn-ghost:hover{border-color:var(--blue);background:var(--blue-soft)}
+  .btn:focus-visible{outline:2.5px solid var(--gold);outline-offset:1px}
+  .soon{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--gold);
+    background:var(--gold-soft);padding:9px 14px;border-radius:9px}
+  .ready-tag{position:absolute;top:-8px;right:14px;background:var(--green);color:#fff;font-size:10.5px;
+    font-weight:700;letter-spacing:.05em;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+
+  .empty{text-align:center;padding:60px 20px;color:var(--muted)}
+  .empty b{color:var(--ink);display:block;font-size:18px;margin-bottom:4px;font-family:'Fraunces',serif}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy);color:#c3d3e2;padding:30px 0}
+  .foot{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;font-size:13px}
+  .foot b{color:#fff;font-family:'Fraunces',serif;font-weight:600}
+  .foot a{color:#9fc0dd;text-decoration:none}
+  .foot a:hover{color:#fff}
+
+  .levelnote{margin:0 0 18px;padding:12px 16px;background:var(--blue-soft);border-left:3px solid var(--blue);border-radius:8px;color:#2b4d68;font-size:14px}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <!-- rosa de los vientos -->
+    <svg class="compass" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="none" stroke="#C8912B" stroke-width="1" opacity="0.55">
+        <circle cx="100" cy="100" r="86"/>
+        <circle cx="100" cy="100" r="66"/>
+      </g>
+      <g stroke="#C8912B" stroke-width="1" opacity="0.45">
+        <line x1="100" y1="6" x2="100" y2="194"/><line x1="6" y1="100" x2="194" y2="100"/>
+        <line x1="30" y1="30" x2="170" y2="170"/><line x1="170" y1="30" x2="30" y2="170"/>
+      </g>
+      <polygon points="100,14 112,100 100,90 88,100" fill="#E9C579"/>
+      <polygon points="100,186 88,100 100,110 112,100" fill="#C8912B"/>
+      <polygon points="14,100 100,88 90,100 100,112" fill="#C8912B" opacity="0.8"/>
+      <polygon points="186,100 100,112 110,100 100,88" fill="#C8912B" opacity="0.8"/>
+      <circle cx="100" cy="100" r="5" fill="#E9C579"/>
+    </svg>
+
+    <div class="brandline">
+      <div class="brandmark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E9C579" stroke-width="1.6">
+          <path d="M12 2v20M5 9l7-3 7 3M4 14c2 2 4 3 8 3s6-1 8-3"/>
+        </svg>
+      </div>
+      <div class="brandtext">Instituto Marítimo de Valparaíso <span>· Departamento de Inglés</span></div>
+    </div>
+
+    <p class="eyebrow">Recursos descargables</p>
+    <h1 class="h1">Inglés de A1 a A2,<br><em>tema por tema</em></h1>
+    <p class="lead">Un plan completo de inglés de A1 a A2, tema por tema, para 1° y 2° Medio. Busca por tema o filtra por nivel, descarga e imprime. Uso libre para estudiantes y colegas.</p>
+
+    <div class="searchbar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#152230" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input id="q" type="search" placeholder="Buscar tema… (have/has, present simple, family…)" autocomplete="off" aria-label="Buscar guía por tema">
+    </div>
+    <div class="stat">
+      <span><b id="count-total">0</b> temas</span>
+      <span class="dot">·</span>
+      <span><b id="count-ready">0</b> disponibles ahora</span>
+    </div>
+  </div>
+</header>
+
+<nav class="filters" aria-label="Filtros">
+  <div class="wrap filters-inner">
+    <div class="fgroup" id="lvl-filters">
+      <span class="flabel">Nivel</span>
+      <button class="chip" data-lvl="all" aria-pressed="true">Todos</button>
+      <button class="chip" data-lvl="1°" aria-pressed="false">1° Medio</button>
+      <button class="chip" data-lvl="2°" aria-pressed="false">2° Medio</button>
+    </div>
+    <div class="fgroup" id="cat-filters">
+      <span class="flabel">Tipo</span>
+      <button class="chip" data-cat="all" aria-pressed="true">Todos</button>
+      <button class="chip" data-cat="Grammar" aria-pressed="false">Gramática</button>
+      <button class="chip" data-cat="Vocabulary" aria-pressed="false">Vocabulario</button>
+      <button class="chip" data-cat="Reading" aria-pressed="false">Lectura</button>
+      <button class="chip" data-cat="Writing" aria-pressed="false">Escritura</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+    <p id="levelnote" class="levelnote"></p>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <b>No hay resultados</b>
+      Prueba con otro término o quita algún filtro.
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div><b>Instituto Marítimo de Valparaíso</b> · Departamento de Inglés</div>
+    <div><a href="https://www.imaritimo.cl" target="_blank" rel="noopener">www.imaritimo.cl</a></div>
+  </div>
+</footer>
+
+<script>
+const RECURSOS = [
+  /* ==================== 1° MEDIO — A1 ==================== */
+  { t:"Verb To Be", n:"1°", c:"A1", g:"Grammar", d:"am / is / are en afirmativo, negativo y preguntas.", k:["to be","am is are","ser estar"], e:"listo", guia:"guias/verb-to-be-guia.pdf" },
+  { t:"Personal Pronouns", n:"1°", c:"A1", g:"Grammar", d:"I, you, he, she, it, we, they y su uso antes del verbo.", k:["pronouns","pronombres"], e:"listo", guia:"guias/personal-pronouns-guia.pdf" },
+  { t:"Possessive Adjectives", n:"1°", c:"A1", g:"Grammar", d:"my, your, his, her, its, our, their para indicar pertenencia.", k:["possessive","posesivos"], e:"listo", guia:"guias/possessive-adjectives-guia.pdf" },
+  { t:"Have / Has (posesión)", n:"1°", c:"A1", g:"Grammar", nuevo:true, d:"Afirmativo, negativo e interrogativo. Guía de práctica + quiz de 50 preguntas.", k:["have","has","do does","posesión"], e:"listo", guia:"guias/have-has-guia.pdf", quiz:"guias/have-has-quiz.pdf" },
+  { t:"Articles: a / an / the", n:"1°", c:"A1", g:"Grammar", d:"Artículos indefinidos y definido; cuándo usar cada uno.", k:["articles","a an the","artículos"], e:"listo", guia:"guias/articles-guia.pdf" },
+  { t:"Plural Nouns", n:"1°", c:"A1", g:"Grammar", d:"Plurales regulares (-s, -es, -ies) e irregulares.", k:["plural","nouns","sustantivos"], e:"listo", guia:"guias/plural-nouns-guia.pdf" },
+  { t:"This / That / These / Those", n:"1°", c:"A1", g:"Grammar", d:"Demostrativos para objetos cercanos y lejanos.", k:["demonstratives","this that these those"], e:"listo", guia:"guias/demonstratives-guia.pdf" },
+  { t:"There is / There are", n:"1°", c:"A1", g:"Grammar", d:"Describir lugares y cantidades en singular y plural.", k:["there is","there are","hay"], e:"listo", guia:"guias/there-is-are-guia.pdf" },
+  { t:"Present Simple", n:"1°", c:"A1", g:"Grammar", d:"Rutinas y hábitos; -s / -es en tercera persona.", k:["present simple","routines","rutinas"], e:"listo", guia:"guias/present-simple-guia.pdf" },
+  { t:"Present Simple: Negativo y Preguntas", n:"1°", c:"A1", g:"Grammar", d:"don't / doesn't y preguntas con do / does.", k:["present simple","do does","don't doesn't"], e:"listo", guia:"guias/present-simple-neg-guia.pdf" },
+  { t:"Object Pronouns", n:"1°", c:"A1", g:"Grammar", d:"me, you, him, her, it, us, them después del verbo.", k:["object pronouns","pronombres objeto"], e:"listo", guia:"guias/object-pronouns-guia.pdf" },
+  { t:"Possessive 's", n:"1°", c:"A1", g:"Grammar", d:"El genitivo sajón para indicar de quién es algo.", k:["possessive s","genitivo sajón"], e:"listo", guia:"guias/possessive-s-guia.pdf" },
+  { t:"Prepositions of Place", n:"1°", c:"A1", g:"Grammar", d:"in, on, under, behind, next to y otras posiciones.", k:["prepositions","place","lugar"], e:"listo", guia:"guias/prepositions-place-guia.pdf" },
+  { t:"Question Words (Wh-)", n:"1°", c:"A1", g:"Grammar", d:"what, where, when, who, why, how para preguntar.", k:["wh questions","question words","preguntas"], e:"listo", guia:"guias/question-words-guia.pdf" },
+  { t:"Imperatives", n:"1°", c:"A1", g:"Grammar", d:"Dar instrucciones y órdenes: Open the door. Don't run.", k:["imperatives","instructions","imperativo"], e:"listo", guia:"guias/imperatives-guia.pdf" },
+  { t:"The Family", n:"1°", c:"A1", g:"Vocabulary", d:"Miembros de la familia y descripciones con el verbo to be.", k:["family","familia"], e:"listo", guia:"guias/family-guia.pdf" },
+  { t:"Numbers & Dates", n:"1°", c:"A1", g:"Vocabulary", d:"Números, días de la semana, meses y fechas.", k:["numbers","dates","números","fechas"], e:"listo", guia:"guias/numbers-dates-guia.pdf" },
+  { t:"Colors & Classroom Objects", n:"1°", c:"A1", g:"Vocabulary", d:"Colores y objetos de la sala de clases.", k:["colors","classroom","colores"], e:"listo", guia:"guias/colors-classroom-guia.pdf" },
+  { t:"Countries & Nationalities", n:"1°", c:"A1", g:"Vocabulary", d:"Países, nacionalidades e idiomas.", k:["countries","nationalities","países"], e:"listo", guia:"guias/countries-nationalities-guia.pdf" },
+  { t:"Jobs & Occupations", n:"1°", c:"A1", g:"Vocabulary", d:"Profesiones y oficios con a / an.", k:["jobs","occupations","trabajos"], e:"listo", guia:"guias/jobs-guia.pdf" },
+  { t:"Parts of the Body", n:"1°", c:"A1", g:"Vocabulary", d:"El cuerpo humano y descripciones físicas.", k:["body","cuerpo"], e:"listo", guia:"guias/body-guia.pdf" },
+  { t:"Telling the Time", n:"1°", c:"A1", g:"Vocabulary", d:"Decir la hora: o'clock, half past, quarter to.", k:["time","hora","clock"], e:"listo", guia:"guias/time-guia.pdf" },
+  { t:"Personal Information", n:"1°", c:"A1", g:"Writing", d:"Presentarse: nombre, edad, país y datos básicos.", k:["personal information","introduce","presentarse"], e:"listo", guia:"guias/personal-information-guia.pdf" },
+
+  /* ==================== 2° MEDIO — A2 ==================== */
+  { t:"Present Continuous", n:"2°", c:"A2", g:"Grammar", d:"Acciones que ocurren ahora: am / is / are + verbo-ing.", k:["present continuous","now","ing"], e:"listo", guia:"guias/present-continuous-guia.pdf" },
+  { t:"Present Simple vs Continuous", n:"2°", c:"A2", g:"Grammar", d:"Contraste entre hábitos y acciones del momento.", k:["present simple","present continuous","contraste"], e:"listo", guia:"guias/present-simple-vs-continuous-guia.pdf" },
+  { t:"Modal Verb: Can", n:"2°", c:"A2", g:"Grammar", d:"Habilidad y permiso: can / can't en todas sus formas.", k:["can","ability","modal","habilidad"], e:"listo", guia:"guias/can-guia.pdf" },
+  { t:"Adverbs of Frequency", n:"2°", c:"A2", g:"Grammar", d:"always, usually, often, sometimes, never y su posición.", k:["frequency","adverbs","frecuencia"], e:"listo", guia:"guias/adverbs-frequency-guia.pdf" },
+  { t:"Likes & Dislikes + Gerunds", n:"2°", c:"A2", g:"Grammar", d:"love / like / enjoy / hate + verbo-ing.", k:["likes","gerund","gerundio"], e:"listo", guia:"guias/likes-gerunds-guia.pdf" },
+  { t:"Past Simple: Was / Were", n:"2°", c:"A2", g:"Grammar", d:"El pasado del verbo to be en oraciones y preguntas.", k:["past simple","was were","pasado"], e:"listo", guia:"guias/past-was-were-guia.pdf" },
+  { t:"Past Simple: Regular Verbs", n:"2°", c:"A2", g:"Grammar", d:"Verbos regulares en pasado y reglas de -ed.", k:["past simple","regular verbs","ed"], e:"listo", guia:"guias/past-regular-guia.pdf" },
+  { t:"Past Simple: Irregular Verbs", n:"2°", c:"A2", g:"Grammar", d:"Los verbos irregulares más frecuentes en pasado.", k:["past simple","irregular verbs","irregulares"], e:"listo", guia:"guias/past-irregular-guia.pdf" },
+  { t:"Past Simple: Negativo y Preguntas", n:"2°", c:"A2", g:"Grammar", d:"didn't y preguntas con did en todas las personas.", k:["past simple","didn't","did"], e:"listo", guia:"guias/past-neg-guia.pdf" },
+  { t:"Countable & Uncountable Nouns", n:"2°", c:"A2", g:"Grammar", d:"Sustantivos contables e incontables.", k:["countable","uncountable","contables"], e:"listo", guia:"guias/countable-uncountable-guia.pdf" },
+  { t:"Quantifiers: some / any / much / many", n:"2°", c:"A2", g:"Grammar", d:"Cuantificadores con contables e incontables.", k:["quantifiers","some any much many"], e:"listo", guia:"guias/quantifiers-guia.pdf" },
+  { t:"Comparatives", n:"2°", c:"A2", g:"Grammar", d:"Comparar dos cosas: -er than / more … than.", k:["comparatives","comparativos"], e:"listo", guia:"guias/comparatives-guia.pdf" },
+  { t:"Superlatives", n:"2°", c:"A2", g:"Grammar", d:"El grado máximo: the -est / the most.", k:["superlatives","superlativos"], e:"listo", guia:"guias/superlatives-guia.pdf" },
+  { t:"Prepositions of Time: in / on / at", n:"2°", c:"A2", g:"Grammar", d:"Preposiciones de tiempo con horas, días y meses.", k:["prepositions","time","in on at"], e:"listo", guia:"guias/prepositions-time-guia.pdf" },
+  { t:"Future: Going to", n:"2°", c:"A2", g:"Grammar", d:"Planes e intenciones futuras con be going to.", k:["future","going to","planes"], e:"listo", guia:"guias/going-to-guia.pdf" },
+  { t:"Future: Will", n:"2°", c:"A2", g:"Grammar", nuevo:true, d:"Predicciones, promesas y decisiones. Quiz de 50 preguntas.", k:["future","will","won't","futuro"], e:"listo", guia:"guias/will-guia.pdf", quiz:"guias/will-quiz.pdf" },
+  { t:"Will vs Going to", n:"2°", c:"A2", g:"Grammar", d:"Cuándo usar cada forma para hablar del futuro.", k:["will","going to","futuro"], e:"listo", guia:"guias/will-vs-going-to-guia.pdf" },
+  { t:"Feelings & Moods", n:"2°", c:"A2", g:"Vocabulary", d:"Sentimientos positivos y negativos con to be.", k:["feelings","emotions","sentimientos"], e:"listo", guia:"guias/feelings-guia.pdf" },
+  { t:"Sports & Free Time", n:"2°", c:"A2", g:"Vocabulary", d:"Deportes y pasatiempos con play / go / do.", k:["sports","hobbies","deportes"], e:"listo", guia:"guias/sports-guia.pdf" },
+  { t:"Music & Instruments", n:"2°", c:"A2", g:"Vocabulary", d:"Instrumentos y géneros musicales.", k:["music","instruments","música"], e:"listo", guia:"guias/music-guia.pdf" },
+  { t:"Food & Drink", n:"2°", c:"A2", g:"Vocabulary", d:"Comidas, bebidas y hábitos alimenticios.", k:["food","drink","comida"], e:"listo", guia:"guias/food-guia.pdf" },
+  { t:"Clothes & Shopping", n:"2°", c:"A2", g:"Vocabulary", d:"Ropa, tallas y frases para comprar.", k:["clothes","shopping","ropa"], e:"listo", guia:"guias/clothes-guia.pdf" },
+  { t:"Daily Routines", n:"2°", c:"A2", g:"Vocabulary", d:"La rutina diaria con verbos y horas.", k:["daily routine","rutina"], e:"listo", guia:"guias/daily-routines-guia.pdf" },
+  { t:"House & Furniture", n:"2°", c:"A2", g:"Vocabulary", d:"Partes de la casa y muebles.", k:["house","furniture","casa"], e:"listo", guia:"guias/house-guia.pdf" },
+  { t:"Weather & Seasons", n:"2°", c:"A2", g:"Vocabulary", d:"El clima, las estaciones y expresiones útiles.", k:["weather","seasons","clima"], e:"listo", guia:"guias/weather-guia.pdf" },
+  { t:"Reading: My Daily Life", n:"2°", c:"A2", g:"Reading", d:"Texto de comprensión con preguntas y vocabulario.", k:["reading","comprensión","daily life"], e:"listo", guia:"guias/reading-daily-life-guia.pdf" },
+
+
+];
+
+const ICON_DL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
+const ICON_CLOCK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+
+let fLvl="all", fCat="all", fText="";
+const grid=document.getElementById('grid');
+const empty=document.getElementById('empty');
+const levelnote=document.getElementById('levelnote');
+
+const CAT_ES={Grammar:"Gramática",Vocabulary:"Vocabulario",Reading:"Lectura",Writing:"Escritura"};
+const NIVEL_INTRO={
+  "1°":"Fundamentos (A1): presente, verbo to be y vocabulario esencial para empezar a comunicarse.",
+  "2°":"Expansión (A2): pasado, futuro y comparación para describir experiencias y planes.",
+};
+
+function cardHTML(r){
+  const ready = r.e==="listo";
+  let actions="";
+  if(ready){
+    const parts=[];
+    if(r.guia) parts.push(`<a class="btn btn-primary" href="${r.guia}" target="_blank" rel="noopener">${ICON_DL} Guía PDF</a>`);
+    if(r.quiz) parts.push(`<a class="btn ${r.guia?'btn-ghost':'btn-primary'}" href="${r.quiz}" target="_blank" rel="noopener">${ICON_DL} Quiz PDF</a>`);
+    actions=parts.join('');
+  } else {
+    actions=`<span class="soon">${ICON_CLOCK} En preparación</span>`;
+  }
+  return `<article class="card">
+    ${r.nuevo?'<span class="ready-tag">Nuevo</span>':''}
+    <div class="card-top">
+      <div class="badges"><span class="lvl">${r.n} Medio</span><span class="cefr">${r.c}</span></div>
+      <span class="cat">${CAT_ES[r.g]}</span>
+    </div>
+    <h3>${r.t}</h3>
+    <p>${r.d}</p>
+    <div class="card-actions">${actions}</div>
+  </article>`;
+}
+
+function render(){
+  const q=fText.trim().toLowerCase();
+  const list=RECURSOS.filter(r=>{
+    if(fLvl!=="all" && r.n!==fLvl) return false;
+    if(fCat!=="all" && r.g!==fCat) return false;
+    if(q){
+      const hay=(r.t+" "+r.d+" "+(r.k||[]).join(" ")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  const orden={"1°":1,"2°":2,"3°":3,"4°":4};
+  list.sort((a,b)=>{
+    if((a.e==="listo")!==(b.e==="listo")) return a.e==="listo"?-1:1;
+    return (orden[a.n]||9)-(orden[b.n]||9);
+  });
+  grid.innerHTML=list.map(cardHTML).join("");
+  empty.hidden=list.length>0;
+  levelnote.textContent = (fLvl!=="all" && NIVEL_INTRO[fLvl]) ? NIVEL_INTRO[fLvl] : "";
+  levelnote.style.display = levelnote.textContent ? "block" : "none";
+}
+
+function initFilters(gid,attr,setter){
+  document.querySelectorAll(`#${gid} .chip`).forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.querySelectorAll(`#${gid} .chip`).forEach(b=>b.setAttribute('aria-pressed','false'));
+      btn.setAttribute('aria-pressed','true');
+      setter(btn.dataset[attr]); render();
+    });
+  });
+}
+initFilters('lvl-filters','lvl',v=>fLvl=v);
+initFilters('cat-filters','cat',v=>fCat=v);
+document.getElementById('q').addEventListener('input',e=>{fText=e.target.value;render();});
+
+document.getElementById('count-total').textContent=RECURSOS.length;
+document.getElementById('count-ready').textContent=RECURSOS.filter(r=>r.e==="listo").length;
+render();
+</script>
+</body>
+</html>
