@@ -122,6 +122,10 @@
   .btn-primary{background:var(--navy2);color:#fff}
   .btn-primary:hover{background:var(--navy)}
   .btn-ghost{background:#fff;border-color:var(--line);color:var(--blue)}
+  .btn-key{background:#fff;border:1px solid var(--gold);color:#9a6f1f}
+  .btn-key:hover{background:var(--gold-soft)}
+  .btn-all{background:#fff;border:1px solid var(--line);color:var(--muted)}
+  .btn-all:hover{border-color:var(--muted);color:var(--ink);background:#f4f6f8}
   .btn-ghost:hover{border-color:var(--blue);background:var(--blue-soft)}
   .btn:focus-visible{outline:2.5px solid var(--gold);outline-offset:1px}
   .soon{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--gold);
@@ -188,6 +192,7 @@
       <span class="dot">·</span>
       <span><b id="count-ready">0</b> disponibles ahora</span>
     </div>
+    <p style="margin:12px 0 0;font-size:12.5px;color:#9fc0dd">Cada tema incluye la <b style="color:#fff">guía del estudiante</b> (sin respuestas, para imprimir) y su <b style="color:#e9c579">pauta</b> aparte, para el docente.</p>
   </div>
 </header>
 
@@ -287,6 +292,8 @@ const RECURSOS = [
 ];
 
 const ICON_DL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
+const ICON_KEY='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5 5 0 1 0-7 7 5 5 0 0 0 7-7zm0 0L15 8m0 0l3 3 3-3-3-3"/></svg>';
+const ICON_ALL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>';
 const ICON_CLOCK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 
 let fLvl="all", fCat="all", fText="";
@@ -305,7 +312,13 @@ function cardHTML(r){
   let actions="";
   if(ready){
     const parts=[];
-    if(r.guia) parts.push(`<a class="btn btn-primary" href="${r.guia}" target="_blank" rel="noopener">${ICON_DL} Guía PDF</a>`);
+    if(r.guia){
+      parts.push(`<a class="btn btn-primary" href="${r.guia}" target="_blank" rel="noopener">${ICON_DL} Guía PDF</a>`);
+      const pauta=r.guia.replace("-guia.pdf","-pauta.pdf");
+      parts.push(`<a class="btn btn-key" href="${pauta}" target="_blank" rel="noopener" title="Hoja de respuestas (uso docente)">${ICON_KEY} Pauta</a>`);
+      const completa=r.guia.replace("-guia.pdf","-completa.pdf");
+      parts.push(`<a class="btn btn-all" href="${completa}" target="_blank" rel="noopener" title="Guía con respuestas incluidas (autocorrección)">${ICON_ALL} Guía + Pauta</a>`);
+    }
     if(r.quiz) parts.push(`<a class="btn ${r.guia?'btn-ghost':'btn-primary'}" href="${r.quiz}" target="_blank" rel="noopener">${ICON_DL} Quiz PDF</a>`);
     actions=parts.join('');
   } else {
