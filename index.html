@@ -332,6 +332,7 @@ const RECURSOS = [
   { t:"Prepositions of Time: in / on / at", n:"2°", c:"A2", g:"Grammar", d:"Preposiciones de tiempo con horas, días y meses.", k:["prepositions","time","in on at"], e:"listo", guia:"prepositions-time-guia.pdf" },
   { t:"Future: Going to", n:"2°", c:"A2", g:"Grammar", d:"Planes e intenciones futuras con be going to.", k:["future","going to","planes"], e:"listo", guia:"going-to-guia.pdf" },
   { t:"Future: Will", n:"2°", c:"A2", g:"Grammar", nuevo:true, d:"Predicciones, promesas y decisiones. Quiz de 50 preguntas.", k:["future","will","won't","futuro"], e:"listo", guia:"will-guia.pdf", quiz:"will-quiz.pdf" },
+  { t:"Proyecto: Tríptico de predicciones", n:"2°", c:"A2", g:"Writing", nuevo:true, sinCompleta:true, d:"Guía paso a paso para crear un tríptico con predicciones usando will / won't. Incluye plantilla para imprimir y doblar, y rúbrica.", k:["tríptico","triptico","will","predicciones","proyecto","brochure"], e:"listo", guia:"triptico-predicciones-guia.pdf", plantilla:"triptico-predicciones-plantilla.pdf" },
   { t:"Will vs Going to", n:"2°", c:"A2", g:"Grammar", d:"Cuándo usar cada forma para hablar del futuro.", k:["will","going to","futuro"], e:"listo", guia:"will-vs-going-to-guia.pdf" },
   { t:"Feelings & Moods", n:"2°", c:"A2", g:"Vocabulary", d:"Sentimientos positivos y negativos con to be.", k:["feelings","emotions","sentimientos"], e:"listo", guia:"feelings-guia.pdf" },
   { t:"Sports & Free Time", n:"2°", c:"A2", g:"Vocabulary", d:"Deportes y pasatiempos con play / go / do.", k:["sports","hobbies","deportes"], e:"listo", guia:"sports-guia.pdf" },
@@ -397,8 +398,11 @@ function cardHTML(r){
       parts.push(`<a class="btn btn-primary" href="${r.guia}" target="_blank" rel="noopener">${ICON_DL} Guía PDF</a>`);
       const pauta=r.guia.replace("-guia.pdf","-pauta.pdf");
       parts.push(`<a class="btn btn-key" href="${pauta}" target="_blank" rel="noopener" title="Hoja de respuestas (uso docente)">${ICON_KEY} Pauta</a>`);
-      const completa=r.guia.replace("-guia.pdf","-completa.pdf");
-      parts.push(`<a class="btn btn-all" href="${completa}" target="_blank" rel="noopener" title="Guía con respuestas incluidas (autocorrección)">${ICON_ALL} Guía + Pauta</a>`);
+      if(r.plantilla) parts.push(`<a class="btn btn-ghost" href="${r.plantilla}" target="_blank" rel="noopener" title="Plantilla del tríptico (hoja horizontal, imprimir por ambos lados)">${ICON_DL} Plantilla tríptico</a>`);
+      if(!r.sinCompleta){
+        const completa=r.guia.replace("-guia.pdf","-completa.pdf");
+        parts.push(`<a class="btn btn-all" href="${completa}" target="_blank" rel="noopener" title="Guía con respuestas incluidas (autocorrección)">${ICON_ALL} Guía + Pauta</a>`);
+      }
       parts.push(`<button class="btn btn-print" type="button" data-print="${r.guia}" title="Imprimir la guía del estudiante">${ICON_PRINT} Imprimir</button>`);
     }
     if(r.quiz) parts.push(`<a class="btn ${r.guia?'btn-ghost':'btn-primary'}" href="${r.quiz}" target="_blank" rel="noopener">${ICON_DL} Quiz PDF</a>`);

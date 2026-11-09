@@ -297,7 +297,7 @@ function build(g){
 
   const nameBox=isKey?"":`<div class="namebox"><div><b>NOMBRE:</b> ________________________________</div><div><b>CURSO:</b> ________ <b>FECHA:</b> ________</div></div>`;
   const intro=isKey?`<div class="intro"><b>Pauta para el docente.</b> Las respuestas aparecen en rojo. Sugerencia: revisar en voz alta los últimos 5 minutos o recoger las guías para revisión formativa (sin calificación). Si un estudiante termina antes, asignar el desafío extra de la hoja 2.</div>`
-   :`<div class="intro"><b>Instrucciones:</b> Esta guía es para trabajar en clase durante <b>45 minutos</b>. Resuelve las actividades en orden; puedes trabajar en silencio o en parejas si el profesor lo permite. Usa lápiz grafito y revisa tu ortografía. ¡Si terminas antes, haz el <b>Bonus challenge</b> al final!</div>`;
+   :`<div class="intro"><b>Instrucciones:</b> Esta guía es para trabajar en clase durante <b>45 minutos</b>. Resuelve las actividades en orden. Usa lápiz grafito y revisa tu ortografía. ¡Si terminas antes, haz el <b>Bonus challenge</b> al final!</div>`;
 
   const page1=`<section class="sheet">${header(g,1,2)}${nameBox}
     <h1>${esc(g.t)}</h1><p class="sub">${esc(g.d)}</p>${intro}

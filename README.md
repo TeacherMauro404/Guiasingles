@@ -11,3 +11,4 @@ Sitio estático (GitHub Pages) con guías de inglés en PDF para 1° y 2° Medio
   `python3 generador/generar.py` (o `python3 generador/generar.py present-simple` para un solo tema).
 - Guías de reemplazo: el contenido está en `reemplazo/guias.js` y la plantilla en `reemplazo/guia.html`. Regenerar los PDF con:
   `node generador/generar_reemplazo.js` (requiere Playwright).
+- Proyecto tríptico de predicciones (2° Medio, will): contenido y diseño en `proyectos/triptico.html`. Regenerar con `node generador/generar_triptico.js` (crea guía, pauta y plantilla horizontal).
