@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Predictions Tri-fold · Presentación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Presentación del proyecto "Tríptico de predicciones". Se exporta a PDF con: node generador/generar_triptico.js -->
+<style>
+  :root{--navy:#0E2A47;--navy2:#123A5E;--blue:#1F5C8B;--soft:#EEF4FA;--gold:#C8912B;--gold2:#E9C579;--goldsoft:#FBF4E4;
+    --ink:#152230;--muted:#5A6B7A;--line:#D3DEE9;--green:#1B7A3D;--greensoft:#E4F1E8;--red:#C0392B;--redsoft:#FBE7E4}
+  @page{size:10in 5.625in;margin:0}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .s{width:10in;height:5.625in;position:relative;overflow:hidden;background:#fff;padding:.38in .5in .42in;break-after:page;page-break-after:always;display:flex;flex-direction:column}
+  .s:last-child{break-after:auto}
+  .dark{background:var(--navy);color:#fff;justify-content:center}
+  .dark h1{font-size:56px}
+  .dark .body{flex:0;margin-top:22px}
+  .dark .en{font-size:24px}
+  .dark::before{content:"";position:absolute;inset:0;opacity:.08;background-image:linear-gradient(rgba(255,255,255,.7) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.7) 1px,transparent 1px);background-size:56px 56px}
+  .kicker{font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 6px}
+  h1{font-family:'Fraunces',Georgia,serif;font-size:38px;line-height:1.05;margin:0;color:var(--navy)}
+  .dark h1{color:#fff}
+  .en{font-size:20px;font-weight:600;margin:8px 0 2px;color:var(--ink)}
+  .es{font-size:16px;font-style:italic;color:var(--muted);margin:0}
+  .dark .en{color:#fff}.dark .es{color:#bcd0e3}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;margin-top:8px}
+  .note{position:absolute;left:.5in;right:.5in;bottom:.13in;font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:20px}
+  .note b{color:var(--gold)}
+  .dark .note{color:#9fb8d0}
+  .num{font-weight:700;color:var(--navy2)}
+  .grid{display:grid;gap:18px}
+  .card{background:var(--soft);border-radius:16px;padding:18px 20px}
+  .card h3{margin:0 0 6px;font-size:21px;color:var(--navy)}
+  .card p{margin:0;font-size:16px;line-height:1.38}
+  .card .sp{font-size:14px;font-style:italic;color:var(--muted);margin-top:6px}
+  .ico{width:54px;height:54px;border-radius:50%;background:var(--navy);display:grid;place-items:center;margin-bottom:10px}
+  .ico svg{width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .ico.gold{background:var(--gold)}
+  .ex{font-size:18px;line-height:1.45}
+  .ex b{color:var(--blue)}
+  .hl{color:var(--gold);font-weight:800}
+  .pill{display:inline-block;background:var(--goldsoft);color:#7a5a17;border-radius:999px;padding:4px 12px;font-weight:700;font-size:15px}
+  table.cmp{border-collapse:collapse;width:100%;font-size:18px}
+  table.cmp td{padding:9px 14px;border-bottom:1px solid var(--line)}
+  table.cmp td.x{color:var(--red);background:var(--redsoft);width:46%}
+  table.cmp td.ok{color:var(--green);background:var(--greensoft);font-weight:600}
+  .scale{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .scale .card{text-align:center;padding:20px 12px}
+  .scale .big{font-size:46px;font-weight:800;color:var(--navy);line-height:1}
+  .fold{display:grid;grid-template-columns:repeat(3,1fr);border:3px solid var(--navy);border-radius:10px;overflow:hidden;height:170px}
+  .fold div{border-right:2.5px dashed #8fa3b8;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:16px}
+  .fold div:last-child{border-right:none}
+  .fold b{font-size:15px;color:var(--gold);letter-spacing:.06em}
+  .fold .hi{background:var(--goldsoft)}
+  .cap{font-weight:800;color:var(--navy);font-size:16px;margin-bottom:6px;letter-spacing:.05em}
+  .ideas{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+  .idea{background:var(--soft);border-radius:12px;padding:9px 10px;font-size:14px;line-height:1.3}
+  .idea .t{font-weight:800;color:var(--navy);font-size:15px;display:flex;align-items:center;gap:8px;margin-bottom:5px}
+  .idea .t span{width:30px;height:30px;border-radius:50%;background:var(--navy);display:grid;place-items:center;flex:0 0 30px}
+  .idea .t svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .model{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .model .card{background:#fff;border:2px solid var(--line)}
+  .model ol{margin:4px 0 0;padding-left:22px;font-size:15px;line-height:1.4}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .step{background:var(--soft);border-radius:14px;padding:12px;position:relative}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--gold);color:#fff;font-weight:800;font-size:20px;display:grid;place-items:center;margin-bottom:10px}
+  .step h3{margin:0 0 4px;font-size:18px;color:var(--navy)}
+  .step p{margin:0;font-size:14px}
+  .step .sp{font-size:13.5px;font-style:italic;color:var(--muted);margin-top:6px}
+  .qa{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:18px}
+  .qa div{background:var(--soft);border-radius:12px;padding:10px 16px}
+  .qa i{color:var(--muted);font-style:normal}
+  .check{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px;font-size:17px}
+  .check div::before{content:"☐  ";color:var(--gold);font-weight:800}
+  .brand{position:absolute;top:.2in;right:.5in;font-size:11px;color:var(--muted);font-weight:600}
+  .dark .brand{color:#9fb8d0}
+</style>
+</head>
+<body>
+<script>
+const I={
+ user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+ users:'<circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 21c0-3.5 3-5.5 7-5.5s7 2 7 5.5"/><path d="M16 15.5c3 0 6 1.5 6 4.5"/>',
+ globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>',
+ cake:'<path d="M4 21h16v-8H4zM4 16c2 1.5 4 1.5 6 0s4-1.5 6 0 4 1.5 4 0"/><path d="M12 13V9M12 6v.01"/>',
+ home:'<path d="M3 11l9-7 9 7v10H3z"/><path d="M9 21v-6h6v6"/>',
+ job:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3M3 12h18"/>',
+ fam:'<circle cx="8" cy="7" r="3"/><circle cx="16" cy="7" r="3"/><circle cx="12" cy="14" r="2.2"/><path d="M3 21c0-3 2-5 5-5M21 21c0-3-2-5-5-5M9 21c0-2 1.3-3.5 3-3.5s3 1.5 3 3.5"/>',
+ plane:'<path d="M2 16l20-7-4 9-6-3-3 5-1-6z"/>',
+ pet:'<circle cx="6" cy="10" r="2"/><circle cx="10" cy="6" r="2"/><circle cx="14" cy="6" r="2"/><circle cx="18" cy="10" r="2"/><path d="M8 18c0-3 2-5 4-5s4 2 4 5-8 3-8 0z"/>',
+ car:'<path d="M3 16v-4l2-5h14l2 5v4z"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
+ music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+ lang:'<path d="M4 5h9M8.5 3v2M6 5c0 5 3 8 7 9M11 5c0 4-3 8-7 9"/><path d="M13 21l4-9 4 9M14.5 18h5"/>',
+ money:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>',
+ star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+ ship:'<path d="M3 17l2 4h14l2-4z"/><path d="M5 17V11h14v6M9 11V6h6v5M12 3v3"/>',
+ check:'<path d="M4 12l5 5L20 6"/>',
+ print:'<path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M6 14h12v7H6z"/>',
+};
+const ic=(n,cls="")=>`<div class="ico ${cls}"><svg viewBox="0 0 24 24">${I[n]}</svg></div>`;
+const small=n=>`<span><svg viewBox="0 0 24 24">${I[n]}</svg></span>`;
+const TOTAL=14;
+let k=0;
+const slide=(o)=>{k++;return `<section class="s ${o.dark?'dark':''}">
+  <div class="brand">Instituto Marítimo de Valparaíso · Inglés 2° Medio</div>
+  ${o.kicker?`<p class="kicker">${o.kicker}</p>`:""}${o.title?`<h1>${o.title}</h1>`:""}
+  ${o.en?`<p class="en">${o.en}</p>`:""}${o.es?`<p class="es">${o.es}</p>`:""}
+  <div class="body">${o.body||""}</div>
+  <div class="note"><span>${o.prof?`<b>Nota para el docente:</b> ${o.prof}`:""}</span><span class="num">${k} / ${TOTAL}</span></div></section>`};
+
+const S=[];
+S.push(slide({dark:true,kicker:"Project · Proyecto de 2° Medio",title:"My Predictions Tri-fold",
+ en:"Me, my friend and the world in 10 years",es:"Yo, mi amigo/a y el mundo en 10 años",
+ body:`<div style="display:flex;gap:16px;flex-wrap:wrap"><span class="pill">will / won't</span><span class="pill">10 predictions about me</span><span class="pill">10 predictions about my friend</span><span class="pill">3 classes · 3 clases</span></div>`,
+ prof:"Proyecte esta presentación y lea cada diapositiva: arriba está la instrucción en inglés y abajo en español. Los estudiantes trabajan con la guía y la plantilla impresas."}));
+
+S.push(slide({kicker:"Today's goal · Objetivo",title:"What will you make?",
+ en:"You will make a tri-fold brochure with predictions about the future.",es:"Crearás un tríptico con predicciones sobre el futuro usando will / won't.",
+ body:`<div class="grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="card">${ic("user")}<h3>Me in 10 years</h3><p>10 predictions about you.</p><p class="sp">10 predicciones sobre ti.</p></div>
+  <div class="card">${ic("users")}<h3>My friend in 10 years</h3><p>10 predictions about your friend.</p><p class="sp">10 predicciones sobre tu amigo/a.</p></div>
+  <div class="card">${ic("globe","gold")}<h3>The world in 10 years</h3><p>4–5 predictions about the world, your city or technology.</p><p class="sp">4–5 predicciones sobre el mundo.</p></div></div>`,
+ prof:"En 10 años los estudiantes tendrán unos 26 años: así las predicciones son realistas y cercanas."}));
+
+S.push(slide({kicker:"Grammar · Gramática",title:"The future with will",
+ en:"Use will + verb to make predictions.",es:"Usamos will + verbo en forma base para hacer predicciones. Es igual para todas las personas.",
+ body:`<div class="grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="card"><h3>Affirmative (+)</h3><p class="ex">I <b>will</b> live near the sea.<br>She <b>will</b> be a chef.<br>We<b>'ll</b> be friends.</p><p class="sp">Afirmativo: will + verbo.</p></div>
+  <div class="card"><h3>Negative (−)</h3><p class="ex">I <b>won't</b> live in Santiago.<br>He <b>won't</b> have a car.<br><span style="color:var(--muted)">won't = will not</span></p><p class="sp">Negativo: won't + verbo.</p></div>
+  <div class="card"><h3>Questions (?)</h3><p class="ex"><b>Will</b> you travel?<br>— Yes, I <b>will</b>.<br>— No, I <b>won't</b>.</p><p class="sp">Pregunta: Will + persona + verbo?</p></div></div>`,
+ prof:"Haga que los estudiantes lean los ejemplos en voz alta. Recalque que después de will el verbo no lleva -s (she will be, no she will is)."}));
+
+S.push(slide({kicker:"Grammar · Gramática",title:"How sure are you?",
+ en:"Use probably and definitely to show how sure you are.",es:"Usa probably (probablemente) y definitely (definitivamente) para mostrar qué tan seguro estás.",
+ body:`<div class="scale">
+  <div class="card"><div class="big">100%</div><p><b>will definitely</b></p><p class="sp" style="margin-top:8px">I will definitely finish school.</p></div>
+  <div class="card"><div class="big">75%</div><p><b>will probably</b></p><p class="sp" style="margin-top:8px">She will probably be a chef.</p></div>
+  <div class="card"><div class="big">25%</div><p><b>probably won't</b></p><p class="sp" style="margin-top:8px">He probably won't live abroad.</p></div>
+  <div class="card"><div class="big">0%</div><p><b>definitely won't</b></p><p class="sp" style="margin-top:8px">I definitely won't smoke.</p></div></div>
+  <p class="ex" style="margin:0"><span class="hl">Tip:</span> will <b>probably</b> · <b>probably</b> won't — <i style="color:var(--muted)">el adverbio va después de will, pero antes de won't.</i></p>`,
+ prof:"Pregunte a 3 o 4 estudiantes: «Will you live in Valparaíso in 10 years?» y que respondan usando probably o definitely."}));
+
+S.push(slide({kicker:"Watch out! · ¡Cuidado!",title:"Common mistakes",
+ en:"Avoid these mistakes in your tri-fold.",es:"Evita estos errores frecuentes en tu tríptico.",
+ body:`<table class="cmp">
+  <tr><td class="x">✗ She will has a dog.</td><td class="ok">✓ She will have a dog.</td></tr>
+  <tr><td class="x">✗ I will to travel.</td><td class="ok">✓ I will travel.</td></tr>
+  <tr><td class="x">✗ I think he won't be rich.</td><td class="ok">✓ I don't think he will be rich.</td></tr>
+  <tr><td class="x">✗ I will can speak English.</td><td class="ok">✓ I will be able to speak English.</td></tr>
+  <tr><td class="x">✗ Will you live here? — Yes, I do.</td><td class="ok">✓ Will you live here? — Yes, I will.</td></tr></table>`,
+ prof:"Lea cada par en voz alta: rojo = incorrecto, verde = correcto. Los estudiantes pueden copiar la columna verde en su cuaderno."}));
+
+S.push(slide({kicker:"The tri-fold · El tríptico",title:"What is a tri-fold?",
+ en:"One landscape sheet folded in three: 3 panels outside and 3 panels inside.",es:"Una hoja horizontal doblada en tres: 3 paneles por fuera y 3 por dentro.",
+ body:`<div class="grid" style="grid-template-columns:1fr 1fr;gap:30px">
+  <div><div class="cap">OUTSIDE · POR FUERA</div><div class="fold"><div><b>PANEL 5</b>Interview with my friend</div><div><b>PANEL 6</b>Back cover</div><div><b>PANEL 1</b>Front cover</div></div></div>
+  <div><div class="cap">INSIDE · POR DENTRO</div><div class="fold"><div class="hi"><b>PANEL 2</b>Me in 10 years<br>(10 lines)</div><div class="hi"><b>PANEL 3</b>My friend in 10 years<br>(10 lines)</div><div><b>PANEL 4</b>The world in 10 years</div></div></div></div>`,
+ prof:"Muestre la plantilla impresa y dóblela frente al curso para que vean dónde queda cada panel."}));
+
+S.push(slide({kicker:"Panel 2",title:"Me in 10 years",
+ en:"Write 10 predictions about you. Use these ideas: one idea = one line.",es:"Escribe 10 predicciones sobre ti. Usa estas ideas: una idea por línea.",
+ body:`<div class="ideas">
+  <div class="idea"><div class="t">${small("cake")}Age</div>I will be 26 years old.</div>
+  <div class="idea"><div class="t">${small("home")}Home</div>I will live in a flat in Viña.</div>
+  <div class="idea"><div class="t">${small("job")}Job</div>I will probably work on a ship.</div>
+  <div class="idea"><div class="t">${small("fam")}Family</div>I won't have children yet.</div>
+  <div class="idea"><div class="t">${small("plane")}Travel</div>I will visit Brazil.</div>
+  <div class="idea"><div class="t">${small("pet")}Pets</div>I will have a cat.</div>
+  <div class="idea"><div class="t">${small("car")}Transport</div>I will drive an electric car.</div>
+  <div class="idea"><div class="t">${small("music")}Hobbies</div>I will play the guitar.</div>
+  <div class="idea"><div class="t">${small("lang")}Languages</div>I will speak English well.</div>
+  <div class="idea"><div class="t">${small("star")}Feelings</div>I think I will be happy.</div></div>
+  <p class="es" style="margin:0">Incluye al menos 2 oraciones con <b>won't</b> y 2 con <b>probably / definitely</b>.</p>`,
+ prof:"Los estudiantes escriben primero en la actividad 6 de la guía (borrador) y luego pasan las 10 líneas al panel 2 de la plantilla."}));
+
+S.push(slide({kicker:"Panel 5 · Speaking",title:"Interview your friend",
+ en:"Choose a friend. Ask questions with Will you…? and write the answers.",es:"Elige a un amigo/a. Hazle preguntas con Will you…? y anota sus respuestas cortas.",
+ body:`<div class="qa">
+  <div>Will you live in Chile? <i>— Yes, I will.</i></div><div>Will you have children? <i>— No, I won't.</i></div>
+  <div>Will you work on a ship? <i>— Yes, I will.</i></div><div>Will you be famous? <i>— No, I won't.</i></div>
+  <div>Will you have pets? <i>— Yes, I will.</i></div><div>Will you speak English? <i>— Yes, I will.</i></div></div>
+  <p class="ex" style="margin:0"><span class="hl">Short answers:</span> Yes, I will. / No, I won't. <i style="color:var(--muted)">(no: Yes, I do.)</i></p>`,
+ prof:"Dé 10 minutos para la entrevista (actividad 5 de la guía). Las respuestas sirven para escribir el panel 3."}));
+
+S.push(slide({kicker:"Panel 3",title:"My friend in 10 years",
+ en:"Write 10 predictions about your friend. Use he / she will… and he / she won't…",es:"Escribe 10 predicciones sobre tu amigo/a con he / she will… y he / she won't… Usa las respuestas de la entrevista.",
+ body:`<div class="grid" style="grid-template-columns:1fr 1fr">
+  <div class="card"><h3>Interview → Prediction</h3><p class="ex">Will you work on a ship? — Yes, I will.<br>→ <b>Diego will work on a ship.</b><br><br>Will you have children? — No, I won't.<br>→ <b>He won't have children.</b></p></div>
+  <div class="card"><h3>Useful starts</h3><p class="ex">My friend's name is…<br>In 10 years, <b>he / she will be</b> 26.<br><b>He / She will probably…</b><br><b>He / She definitely won't…</b><br><b>We will still be…</b></p></div></div>`,
+ prof:"Recuerde: con he / she el verbo después de will tampoco lleva -s (she will live, no she will lives)."}));
+
+S.push(slide({kicker:"Model · Modelo",title:"Martina's tri-fold",
+ en:"Read the model. Then write your own panels.",es:"Lee el modelo de Martina. Después escribe tus propios paneles.",
+ body:`<div class="model">
+  <div class="card"><h3>Panel 2 · Me in 10 years</h3><ol><li>I will be 26 years old.</li><li>I will live in a flat near the sea.</li><li>I will probably work as a marine engineer.</li><li>I will travel on big ships.</li><li>I won't have children yet, but I will have a dog.</li><li>…</li></ol></div>
+  <div class="card"><h3>Panel 3 · My friend Javiera</h3><ol><li>She will be 26 too.</li><li>She will probably be a chef.</li><li>She will work in a restaurant in Cerro Alegre.</li><li>She will live in a flat with two cats.</li><li>She definitely won't stop dancing!</li><li>…</li></ol></div></div>`,
+ prof:"El modelo completo (10 líneas por panel) está en la página 3 de la guía (actividad 4)."}));
+
+S.push(slide({kicker:"Panels 1, 4 & 6",title:"The other panels",
+ en:"Complete the cover, the world panel and the back cover.",es:"Completa la portada, el panel del mundo y la contraportada.",
+ body:`<div class="grid" style="grid-template-columns:repeat(3,1fr)">
+  <div class="card">${ic("star","gold")}<h3>Panel 1 · Cover</h3><p>A title, your name and a big picture.</p><p class="sp">Título, tu nombre y un dibujo grande.</p></div>
+  <div class="card">${ic("globe")}<h3>Panel 4 · The world</h3><p>4–5 predictions: technology, the sea, your city, school…</p><p class="sp">4–5 predicciones sobre el mundo o tu ciudad.</p></div>
+  <div class="card">${ic("chat")}<h3>Panel 6 · Back cover</h3><p>2–3 questions for the reader: Will robots be our friends?</p><p class="sp">2–3 preguntas para el lector y tus datos.</p></div></div>`,
+ prof:"Ejemplos para el panel 4: More robots will work in shops. Ships will use cleaner energy. Summers will probably be hotter."}));
+
+S.push(slide({kicker:"Step by step · Paso a paso",title:"How to work",
+ en:"Follow these steps.",es:"Sigue estos pasos.",
+ body:`<div class="steps">
+  <div class="step"><div class="n">1</div><h3>Practise</h3><p>Activities 1–4 in the worksheet.</p><p class="sp">Actividades 1 a 4 de la guía.</p></div>
+  <div class="step"><div class="n">2</div><h3>Interview</h3><p>Ask your friend Will you…?</p><p class="sp">Entrevista a tu amigo/a.</p></div>
+  <div class="step"><div class="n">3</div><h3>Draft</h3><p>Write 10 + 10 predictions.</p><p class="sp">Borrador de 10 + 10 predicciones.</p></div>
+  <div class="step"><div class="n">4</div><h3>Check</h3><p>Use the checklist. Ask your teacher.</p><p class="sp">Revisa con la lista de cotejo.</p></div>
+  <div class="step"><div class="n">5</div><h3>Final</h3><p>Copy to the template, draw and fold.</p><p class="sp">Pasa a la plantilla, dibuja y dobla.</p></div></div>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:14px">
+  <div class="card" style="padding:12px 16px"><p><b>Class 1 · Clase 1:</b> steps 1–2</p></div><div class="card" style="padding:12px 16px"><p><b>Class 2 · Clase 2:</b> steps 3–4</p></div><div class="card" style="padding:12px 16px"><p><b>Class 3 · Clase 3:</b> step 5</p></div></div>`,
+ prof:"Si es reemplazo de una sola clase, avance hasta donde alcance y pida que guarden la guía para la próxima clase."}));
+
+S.push(slide({kicker:"Before you finish · Antes de entregar",title:"Checklist",
+ en:"Check your tri-fold before you hand it in.",es:"Revisa tu tríptico antes de entregarlo (24 puntos en la rúbrica).",
+ body:`<div class="check">
+  <div>Panel 2 has 10 predictions about me. <i style="color:var(--muted)">· 10 predicciones sobre mí</i></div>
+  <div>Panel 3 has 10 predictions about my friend. <i style="color:var(--muted)">· 10 sobre mi amigo/a</i></div>
+  <div>I used will + base verb. <i style="color:var(--muted)">· will + verbo base</i></div>
+  <div>I used won't at least 4 times. <i style="color:var(--muted)">· won't 4 veces</i></div>
+  <div>I used probably / definitely. <i style="color:var(--muted)">· adverbios</i></div>
+  <div>Panel 5 has questions with Will you…? <i style="color:var(--muted)">· entrevista</i></div>
+  <div>My cover has a title, my name and a picture. <i style="color:var(--muted)">· portada</i></div>
+  <div>I checked spelling and capital letters. <i style="color:var(--muted)">· ortografía</i></div></div>`,
+ prof:"La rúbrica completa está en la última página de la guía. Escala sugerida: 60 % de exigencia."}));
+
+S.push(slide({dark:true,kicker:"Your turn! · ¡Manos a la obra!",title:"What will YOUR future be like?",
+ en:"Print on both sides (flip on short edge) and fold in three.",es:"Imprime la plantilla por ambos lados (voltear por el borde corto) y dóblala en tres.",
+ body:`<div style="display:flex;gap:16px;flex-wrap:wrap"><span class="pill">Worksheet · Guía</span><span class="pill">Template · Plantilla</span><span class="pill">Rubric · Rúbrica (24 pts)</span></div>`,
+ prof:"Materiales: guía del proyecto, plantilla del tríptico, lápices de colores. Recoja los trípticos al final de la clase 3."}));
+
+document.body.innerHTML=S.join("");
+</script>
+</body>
+</html>

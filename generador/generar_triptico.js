@@ -13,5 +13,9 @@ const root = path.resolve(__dirname, '..');
       margin: landscape ? { top: '8mm', bottom: '8mm', left: '8mm', right: '8mm' } : { top: '9mm', bottom: '9mm', left: '11mm', right: '11mm' } });
     console.log(path.basename(out));
   }
+  await p.goto('file://' + path.join(root, 'proyectos/triptico-slides.html'), { waitUntil: 'load' });
+  await p.evaluate(() => document.fonts.ready);
+  await p.pdf({ path: path.join(root, 'triptico-predicciones-presentacion.pdf'), width: '10in', height: '5.625in', printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
+  console.log('triptico-predicciones-presentacion.pdf');
   await b.close();
 })();
