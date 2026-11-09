@@ -83,7 +83,7 @@
   /* ---------- FILTROS ---------- */
   .filters{position:sticky;top:0;z-index:20;background:rgba(245,248,251,.92);
     backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .filters-inner{display:flex;flex-wrap:wrap;gap:18px;padding:14px 0;align-items:center}
+  .filters-inner{display:flex;flex-wrap:wrap;gap:18px;padding-top:14px;padding-bottom:14px;align-items:center}
   .fgroup{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .flabel{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:2px}
   .chip{
@@ -145,7 +145,7 @@
 
   .btn-print{background:#fff;border:1px solid var(--line);color:var(--navy2)}
   .btn-print:hover{border-color:var(--navy2);background:var(--blue-soft)}
-  .sec-head{margin:46px 0 16px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:80px}
+  .sec-head{margin:0 0 16px}
   .sec-head .eyebrow{margin-bottom:6px}
   .sec-head h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(24px,3.6vw,34px);margin:0 0 8px;color:var(--navy);line-height:1.1}
   .sec-head p{margin:0;max-width:720px;color:var(--muted);font-size:15px}
@@ -153,6 +153,23 @@
   .acts span{font-size:11px;font-weight:600;color:#7a5a17;background:var(--gold-soft);padding:3px 8px;border-radius:6px}
   .card.fun{border-top:3px solid var(--gold)}
   .lvl.todos{background:var(--gold-soft);color:#7a5a17}
+  .tabs{display:flex;gap:6px;padding-top:12px;border-bottom:1px solid var(--line);overflow-x:auto}
+  .tab{font-family:inherit;font-size:15px;font-weight:600;color:var(--muted);background:transparent;border:1px solid transparent;
+    border-bottom:none;padding:11px 18px;border-radius:11px 11px 0 0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;margin-bottom:-1px}
+  .tab:hover{color:var(--navy2);background:#fff}
+  .tab[aria-selected="true"]{background:#fff;color:var(--navy);border-color:var(--line);box-shadow:inset 0 3px 0 var(--navy2)}
+  .tab.fun[aria-selected="true"]{box-shadow:inset 0 3px 0 var(--gold)}
+  .tab .count{font-size:12px;font-weight:700;background:var(--blue-soft);color:var(--blue);padding:2px 8px;border-radius:999px}
+  .tab.fun .count{background:var(--gold-soft);color:#7a5a17}
+  .tab:focus-visible{outline:2.5px solid var(--gold);outline-offset:-2px}
+  .sec-head.intro-fun{margin:0 0 18px;padding:16px 18px;border:1px solid #ecd9ae;border-left:4px solid var(--gold);background:#fffaf0;border-radius:10px}
+  [hidden]{display:none!important}
+  @media(max-width:520px){
+    .tabs{gap:4px}
+    .tab{font-size:13.5px;padding:10px 11px;gap:6px}
+    .tab .count{font-size:11px;padding:1px 6px}
+    .filters-inner{gap:10px;padding-top:10px;padding-bottom:10px}
+  }
   .heronav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
   .heronav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:999px}
   .heronav a:hover{background:rgba(255,255,255,.1)}
@@ -209,11 +226,17 @@
       <span><b id="count-fun">0</b> guías de reemplazo</span>
     </div>
     <p style="margin:12px 0 0;font-size:12.5px;color:#9fc0dd">Cada guía (3–4 páginas, 9–10 ejercicios) incluye la <b style="color:#fff">versión del estudiante</b> y su <b style="color:#e9c579">pauta</b> aparte, para el docente.</p>
-    <div class="heronav"><a href="#grid">Guías por tema</a><a class="gold" href="#reemplazo">Guías de reemplazo (45 min)</a></div>
+    <div class="heronav"><a href="#temas" data-goto="temas">Guías por tema</a><a class="gold" href="#reemplazo" data-goto="reemplazo">Guías de reemplazo (45 min)</a></div>
   </div>
 </header>
 
-<nav class="filters" aria-label="Filtros">
+<nav class="filters" aria-label="Secciones y filtros">
+  <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Secciones">
+      <button class="tab" role="tab" id="tab-temas" data-tab="temas" aria-controls="panel-temas" aria-selected="true">Guías por tema <span class="count" id="tabcount-temas">0</span></button>
+      <button class="tab fun" role="tab" id="tab-reemplazo" data-tab="reemplazo" aria-controls="panel-reemplazo" aria-selected="false">Guías de reemplazo <span class="count" id="tabcount-fun">0</span></button>
+    </div>
+  </div>
   <div class="wrap filters-inner">
     <div class="fgroup" id="lvl-filters">
       <span class="flabel">Nivel</span>
@@ -234,14 +257,17 @@
 
 <main>
   <div class="wrap">
+   <div id="panel-temas" role="tabpanel" aria-labelledby="tab-temas">
     <p id="levelnote" class="levelnote"></p>
     <div class="grid" id="grid"></div>
     <div class="empty" id="empty" hidden>
       <b>No hay resultados</b>
       Prueba con otro término o quita algún filtro.
     </div>
+   </div>
 
-    <section id="reemplazo" class="sec-head" aria-labelledby="reemplazo-title">
+   <div id="panel-reemplazo" role="tabpanel" aria-labelledby="tab-reemplazo" hidden>
+    <section class="sec-head intro-fun" aria-labelledby="reemplazo-title">
       <p class="eyebrow">Para docentes reemplazantes</p>
       <h2 id="reemplazo-title">Guías de reemplazo · 45 minutos</h2>
       <p>Actividades entretenidas para mantener al curso trabajando una clase completa sin necesidad de explicación previa: sopa de letras, palabras desordenadas, el intruso, crucigrama, oraciones desordenadas, código secreto y un desafío extra. Cada guía son 2 hojas tamaño carta en PDF; la pauta docente se abre por separado.</p>
@@ -251,6 +277,7 @@
       <b>No hay guías de reemplazo para este filtro</b>
       Prueba con otro nivel o término de búsqueda.
     </div>
+   </div>
   </div>
 </main>
 
@@ -476,6 +503,24 @@ document.getElementById('count-total').textContent=RECURSOS.length;
 document.getElementById('count-ready').textContent=RECURSOS.filter(r=>r.e==="listo").length;
 document.getElementById('count-fun').textContent=REEMPLAZO.length;
 render();
+
+/* ---------- pestañas ---------- */
+function showTab(name, scroll){
+  const fun = name==="reemplazo";
+  document.getElementById('panel-temas').hidden = fun;
+  document.getElementById('panel-reemplazo').hidden = !fun;
+  document.getElementById('tab-temas').setAttribute('aria-selected', String(!fun));
+  document.getElementById('tab-reemplazo').setAttribute('aria-selected', String(fun));
+  document.getElementById('cat-filters').hidden = fun;   // el filtro "Tipo" solo aplica a las guías por tema
+  if(history.replaceState) history.replaceState(null,"", fun ? "#reemplazo" : "#temas");
+  if(scroll){ document.querySelector('.filters').scrollIntoView({behavior:"smooth"}); }
+}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.tab,false)));
+document.querySelectorAll('[data-goto]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showTab(a.dataset.goto,true);}));
+document.getElementById('tabcount-temas').textContent=RECURSOS.length;
+document.getElementById('tabcount-fun').textContent=REEMPLAZO.length;
+showTab(location.hash==="#reemplazo" ? "reemplazo" : "temas", false);
+window.addEventListener('hashchange',()=>showTab(location.hash==="#reemplazo"?"reemplazo":"temas",false));
 </script>
 </body>
 </html>
