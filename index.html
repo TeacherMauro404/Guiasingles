@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guías de Inglés · Instituto Marítimo de Valparaíso</title>
-<meta name="description" content="Guías y quizzes de inglés descargables en PDF para 1° a 4° Medio. Departamento de Inglés, Instituto Marítimo de Valparaíso.">
+<meta name="description" content="Guías de inglés descargables en PDF (3–4 páginas, con pauta docente) y guías de reemplazo entretenidas para 1° y 2° Medio. Departamento de Inglés, Instituto Marítimo de Valparaíso.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -143,6 +143,20 @@
   .foot a{color:#9fc0dd;text-decoration:none}
   .foot a:hover{color:#fff}
 
+  .btn-print{background:#fff;border:1px solid var(--line);color:var(--navy2)}
+  .btn-print:hover{border-color:var(--navy2);background:var(--blue-soft)}
+  .sec-head{margin:46px 0 16px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:80px}
+  .sec-head .eyebrow{margin-bottom:6px}
+  .sec-head h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(24px,3.6vw,34px);margin:0 0 8px;color:var(--navy);line-height:1.1}
+  .sec-head p{margin:0;max-width:720px;color:var(--muted);font-size:15px}
+  .acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .acts span{font-size:11px;font-weight:600;color:#7a5a17;background:var(--gold-soft);padding:3px 8px;border-radius:6px}
+  .card.fun{border-top:3px solid var(--gold)}
+  .lvl.todos{background:var(--gold-soft);color:#7a5a17}
+  .heronav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .heronav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.3);padding:8px 14px;border-radius:999px}
+  .heronav a:hover{background:rgba(255,255,255,.1)}
+  .heronav a.gold{border-color:var(--gold);color:#E9C579}
   .levelnote{margin:0 0 18px;padding:12px 16px;background:var(--blue-soft);border-left:3px solid var(--blue);border-radius:8px;color:#2b4d68;font-size:14px}
   @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
@@ -191,8 +205,11 @@
       <span><b id="count-total">0</b> temas</span>
       <span class="dot">·</span>
       <span><b id="count-ready">0</b> disponibles ahora</span>
+      <span class="dot">·</span>
+      <span><b id="count-fun">0</b> guías de reemplazo</span>
     </div>
-    <p style="margin:12px 0 0;font-size:12.5px;color:#9fc0dd">Cada tema incluye la <b style="color:#fff">guía del estudiante</b> (sin respuestas, para imprimir) y su <b style="color:#e9c579">pauta</b> aparte, para el docente.</p>
+    <p style="margin:12px 0 0;font-size:12.5px;color:#9fc0dd">Cada guía (3–4 páginas, 9–10 ejercicios) incluye la <b style="color:#fff">versión del estudiante</b> y su <b style="color:#e9c579">pauta</b> aparte, para el docente.</p>
+    <div class="heronav"><a href="#grid">Guías por tema</a><a class="gold" href="#reemplazo">Guías de reemplazo (45 min)</a></div>
   </div>
 </header>
 
@@ -222,6 +239,17 @@
     <div class="empty" id="empty" hidden>
       <b>No hay resultados</b>
       Prueba con otro término o quita algún filtro.
+    </div>
+
+    <section id="reemplazo" class="sec-head" aria-labelledby="reemplazo-title">
+      <p class="eyebrow">Para docentes reemplazantes</p>
+      <h2 id="reemplazo-title">Guías de reemplazo · 45 minutos</h2>
+      <p>Actividades entretenidas para mantener al curso trabajando una clase completa sin necesidad de explicación previa: sopa de letras, palabras desordenadas, el intruso, crucigrama, oraciones desordenadas, código secreto y un desafío extra. Cada guía son 2 hojas tamaño carta en PDF; la pauta docente se abre por separado.</p>
+    </section>
+    <div class="grid" id="grid-fun"></div>
+    <div class="empty" id="empty-fun" hidden>
+      <b>No hay guías de reemplazo para este filtro</b>
+      Prueba con otro nivel o término de búsqueda.
     </div>
   </div>
 </main>
@@ -291,9 +319,35 @@ const RECURSOS = [
 
 ];
 
+const REEMPLAZO = [
+  { id:"classroom", t:"Back to the Classroom", n:"1°", c:"A1", d:"Objetos de la sala, colores y lenguaje de clase.", k:["classroom","colors","objetos"] },
+  { id:"family-fun", t:"Family Puzzles", n:"1°", c:"A1", d:"Miembros de la familia y relaciones.", k:["family","familia"] },
+  { id:"animals", t:"Animal Kingdom", n:"1°", c:"A1", d:"Animales domésticos, salvajes y marinos.", k:["animals","animales"] },
+  { id:"food-fun", t:"Yummy Food!", n:"1°", c:"A1", d:"Comidas, frutas, verduras y bebidas.", k:["food","comida"] },
+  { id:"body-fun", t:"Body Parts Challenge", n:"1°", c:"A1", d:"Partes del cuerpo y la cara.", k:["body","cuerpo"] },
+  { id:"jobs-fun", t:"Job Hunt", n:"1°", c:"A1", d:"Profesiones y oficios, incluidos los marítimos.", k:["jobs","trabajos"] },
+  { id:"time-days", t:"Time, Days & Months", n:"1°", c:"A1", d:"Días, meses, estaciones y la hora.", k:["time","days","months","fechas"] },
+  { id:"countries-fun", t:"Around the World", n:"1°", c:"A1", d:"Países, nacionalidades e idiomas.", k:["countries","países"] },
+  { id:"tobe-fun", t:"Verb To Be Games", n:"1°", c:"A1", d:"am / is / are con adjetivos de personalidad.", k:["to be","adjectives"] },
+  { id:"sports-fun", t:"Sports Mania", n:"2°", c:"A2", d:"Deportes, lugares y equipamiento deportivo.", k:["sports","deportes"] },
+  { id:"weather-fun", t:"Weather Watch", n:"2°", c:"A2", d:"El clima, las estaciones y el mar.", k:["weather","clima"] },
+  { id:"feelings-fun", t:"How Do You Feel?", n:"2°", c:"A2", d:"Sentimientos y estados de ánimo.", k:["feelings","emociones"] },
+  { id:"clothes-fun", t:"Fashion Puzzles", n:"2°", c:"A2", d:"Ropa, accesorios y compras.", k:["clothes","ropa"] },
+  { id:"house-fun", t:"Home Sweet Home", n:"2°", c:"A2", d:"Habitaciones de la casa y muebles.", k:["house","casa"] },
+  { id:"past-fun", t:"Past Tense Detectives", n:"2°", c:"A2", d:"Verbos irregulares en pasado simple.", k:["past","pasado","irregular"] },
+  { id:"travel-fun", t:"Let's Travel!", n:"2°", c:"A2", d:"Transporte, viajes y vacaciones.", k:["travel","viajes","transporte"] },
+  { id:"routines-fun", t:"My Daily Routine", n:"2°", c:"A2", d:"Rutinas diarias y adverbios de frecuencia.", k:["routine","rutina"] },
+  { id:"future-fun", t:"Future Fortune Tellers", n:"2°", c:"A2", d:"will / going to, planes y predicciones.", k:["future","will","going to"] },
+  { id:"ships-sea", t:"Ships & the Sea", n:"Todos", c:"A1–A2", d:"Vocabulario náutico: partes del barco y el mar.", k:["ships","sea","barcos","mar"] },
+  { id:"sea-animals", t:"Sea Creatures", n:"Todos", c:"A1–A2", d:"Animales marinos de las costas de Chile.", k:["sea animals","marinos"] },
+  { id:"port-safety", t:"Safety on Board", n:"Todos", c:"A1–A2", d:"Seguridad a bordo e instrucciones (imperativos).", k:["safety","seguridad","imperatives"] },
+];
+const ACTIVIDADES=["Word search","Unscramble","Odd one out","Crossword","Sentence scramble","Secret code"];
+
 const ICON_DL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>';
 const ICON_KEY='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.6 7.6a5 5 0 1 0-7 7 5 5 0 0 0 7-7zm0 0L15 8m0 0l3 3 3-3-3-3"/></svg>';
 const ICON_ALL='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>';
+const ICON_PRINT='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
 const ICON_CLOCK='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 
 let fLvl="all", fCat="all", fText="";
@@ -318,6 +372,7 @@ function cardHTML(r){
       parts.push(`<a class="btn btn-key" href="${pauta}" target="_blank" rel="noopener" title="Hoja de respuestas (uso docente)">${ICON_KEY} Pauta</a>`);
       const completa=r.guia.replace("-guia.pdf","-completa.pdf");
       parts.push(`<a class="btn btn-all" href="${completa}" target="_blank" rel="noopener" title="Guía con respuestas incluidas (autocorrección)">${ICON_ALL} Guía + Pauta</a>`);
+      parts.push(`<button class="btn btn-print" type="button" data-print="${r.guia}" title="Imprimir la guía del estudiante">${ICON_PRINT} Imprimir</button>`);
     }
     if(r.quiz) parts.push(`<a class="btn ${r.guia?'btn-ghost':'btn-primary'}" href="${r.quiz}" target="_blank" rel="noopener">${ICON_DL} Quiz PDF</a>`);
     actions=parts.join('');
@@ -335,6 +390,42 @@ function cardHTML(r){
     <div class="card-actions">${actions}</div>
   </article>`;
 }
+
+function funCardHTML(r){
+  const base=`reemplazo/${r.id}`;
+  const lvl=r.n==="Todos"?'<span class="lvl todos">Todos los niveles</span>':`<span class="lvl">${r.n} Medio</span>`;
+  return `<article class="card fun">
+    <div class="card-top">
+      <div class="badges">${lvl}<span class="cefr">${r.c}</span></div>
+      <span class="cat">45 min</span>
+    </div>
+    <h3>${r.t}</h3>
+    <p>${r.d}</p>
+    <div class="acts">${ACTIVIDADES.map(a=>`<span>${a}</span>`).join("")}</div>
+    <div class="card-actions">
+      <a class="btn btn-primary" href="${base}-guia.pdf" target="_blank" rel="noopener">${ICON_DL} Guía PDF</a>
+      <button class="btn btn-print" type="button" data-print="${base}-guia.pdf" title="Imprimir la guía del estudiante">${ICON_PRINT} Imprimir</button>
+      <a class="btn btn-key" href="${base}-pauta.pdf" target="_blank" rel="noopener" title="Hoja de respuestas (uso docente)">${ICON_KEY} Pauta docente</a>
+    </div>
+  </article>`;
+}
+
+/* Imprimir un PDF con un clic: se carga en un iframe oculto y se abre el diálogo de impresión.
+   Si el navegador no lo permite (p. ej. algunos móviles), se abre el PDF en una pestaña nueva. */
+function printPDF(url){
+  const old=document.getElementById('print-frame'); if(old) old.remove();
+  const isMobile=/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile){ window.open(url,'_blank','noopener'); return; }
+  const f=document.createElement('iframe');
+  f.id='print-frame'; f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';
+  f.src=url;
+  f.onload=()=>{ setTimeout(()=>{ try{ f.contentWindow.focus(); f.contentWindow.print(); }catch(e){ window.open(url,'_blank','noopener'); } },300); };
+  document.body.appendChild(f);
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-print]'); if(!b) return;
+  printPDF(b.dataset.print);
+});
 
 function render(){
   const q=fText.trim().toLowerCase();
@@ -354,6 +445,16 @@ function render(){
   });
   grid.innerHTML=list.map(cardHTML).join("");
   empty.hidden=list.length>0;
+  const funList=REEMPLAZO.filter(r=>{
+    if(fLvl!=="all" && r.n!==fLvl && r.n!=="Todos") return false;
+    if(q){
+      const hay=(r.t+" "+r.d+" "+(r.k||[]).join(" ")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  document.getElementById('grid-fun').innerHTML=funList.map(funCardHTML).join("");
+  document.getElementById('empty-fun').hidden=funList.length>0;
   levelnote.textContent = (fLvl!=="all" && NIVEL_INTRO[fLvl]) ? NIVEL_INTRO[fLvl] : "";
   levelnote.style.display = levelnote.textContent ? "block" : "none";
 }
@@ -373,6 +474,7 @@ document.getElementById('q').addEventListener('input',e=>{fText=e.target.value;r
 
 document.getElementById('count-total').textContent=RECURSOS.length;
 document.getElementById('count-ready').textContent=RECURSOS.filter(r=>r.e==="listo").length;
+document.getElementById('count-fun').textContent=REEMPLAZO.length;
 render();
 </script>
 </body>

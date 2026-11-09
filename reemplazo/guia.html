@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de reemplazo · Inglés</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A47; --bar:#1E5A8A; --blue:#1F5C8B; --blue-soft:#EEF4FA; --gold:#C8912B; --gold-soft:#FBF4E4;
+    --ink:#152230; --muted:#5A6B7A; --line:#B8C7D6; --ans:#C0392B; --paper:#E9EEF3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* ---------- barra de herramientas (solo pantalla) ---------- */
+  .toolbar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+  .toolbar .in{max-width:8.5in;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+  .toolbar a.back{color:#bcd3e8;text-decoration:none;font-size:14px;font-weight:500}
+  .toolbar a.back:hover{color:#fff}
+  .tb-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .tbtn{font-family:inherit;font-size:14px;font-weight:600;border-radius:9px;padding:9px 14px;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+  .tbtn.print{background:#fff;color:var(--navy)}
+  .tbtn.print:hover{background:#e8f0f7}
+  .tbtn.key{background:transparent;border-color:var(--gold);color:#E9C579}
+  .tbtn.key:hover{background:rgba(200,145,43,.15)}
+  .tbtn:focus-visible{outline:2.5px solid var(--gold);outline-offset:2px}
+  .mode-note{max-width:8.5in;margin:14px auto 0;padding:0 16px;font-size:13px;color:var(--muted)}
+
+  /* ---------- hoja ---------- */
+  .sheet{width:8.5in;max-width:calc(100% - 24px);margin:16px auto;background:#fff;padding:12mm 13mm;box-shadow:0 4px 20px rgba(14,42,71,.12)}
+  .sheet + .sheet{margin-top:20px}
+  .hdr{background:var(--navy);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:8px 12px;gap:10px}
+  .hdr b{font-size:13px;letter-spacing:.02em;display:block}
+  .hdr small{font-size:9.5px;color:#c8d7e6}
+  .hdr .r{text-align:right}
+  .hdr .r b{color:#E9C579;font-size:11.5px}
+  .namebox{display:grid;grid-template-columns:1.4fr 1fr;border:1.2px solid var(--navy);margin-top:8px;font-size:11.5px}
+  .namebox div{padding:8px 9px}
+  .namebox div+div{border-left:1px solid var(--line)}
+  h1{font-family:'Fraunces',Georgia,serif;color:var(--navy);font-size:26px;margin:10px 0 2px;line-height:1.1}
+  .sub{font-size:11.5px;color:var(--muted);margin:0 0 8px}
+  .intro{background:var(--gold-soft);border:1px solid var(--gold);padding:7px 10px;font-size:11px;line-height:1.45;margin-bottom:10px}
+  .intro b{color:var(--navy)}
+
+  .act{margin-top:8px;break-inside:avoid;page-break-inside:avoid}
+  .bar{background:var(--bar);color:#fff;font-weight:700;font-size:12px;padding:4px 9px;display:flex;justify-content:space-between}
+  .bar span{font-weight:500;color:#cfe0ef}
+  .instr{font-style:italic;font-size:10.5px;color:var(--muted);margin:3px 0 6px}
+
+  /* sopa de letras */
+  .ws-wrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  table.grid{border-collapse:collapse}
+  table.grid td{width:6.4mm;height:6.4mm;text-align:center;vertical-align:middle;font-weight:600;font-size:12.5px;border:1px solid #d5dfe9;padding:0;font-family:'Inter',monospace}
+  table.grid td.hit{background:#F9D9D3;color:var(--ans)}
+  .wordlist{columns:2;column-gap:16px;font-size:12px;font-weight:600;color:var(--navy);flex:1;min-width:150px}
+  .wordlist div{padding:2px 0;break-inside:avoid}
+  .wordlist div::before{content:"☐ ";color:var(--muted);font-weight:400}
+
+  /* unscramble */
+  .un{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;font-size:12px}
+  .un .it{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .un .n{font-weight:700;color:var(--navy);min-width:16px}
+  .un .letters{font-weight:700;letter-spacing:.18em;color:var(--blue)}
+  .un .hint{color:var(--muted);font-size:10.5px}
+  .boxes{display:inline-flex;gap:1px}
+  .boxes i{display:inline-block;width:5.2mm;height:5.6mm;border-bottom:1.4px solid var(--ink);font-style:normal;text-align:center;font-weight:700;color:var(--ans);font-size:12px;line-height:5.6mm}
+
+  /* intrusos */
+  .odd{display:grid;grid-template-columns:1fr;gap:5px;font-size:12px}
+  .odd .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .odd .w{border:1px solid var(--line);border-radius:999px;padding:2px 11px}
+  .odd .w.odd-ans{border:2px solid var(--ans);color:var(--ans);font-weight:700}
+
+  /* crucigrama */
+  .cw-wrap{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+  table.cw{border-collapse:collapse}
+  table.cw td{width:5.8mm;height:5.8mm;padding:0;position:relative;text-align:center;vertical-align:middle;font-weight:700;font-size:11.5px;color:var(--ans)}
+  table.cw td.c{border:1.2px solid var(--ink);background:#fff}
+  table.cw td sup{position:absolute;top:0;left:1px;font-size:6.5px;color:var(--ink);font-weight:600;line-height:1}
+  .clues{flex:1;min-width:200px;font-size:11px;line-height:1.4}
+  .clues h4{margin:0 0 3px;font-size:11.5px;color:var(--navy);letter-spacing:.06em}
+  .clues ol{margin:0 0 8px;padding-left:0;list-style:none}
+  .clues li{margin-bottom:2px}
+  .clues li b{color:var(--navy)}
+  .clues .a{color:var(--ans);font-weight:700}
+
+  /* oraciones */
+  .sent{font-size:12px}
+  .sent .it{margin-bottom:5px}
+  .sent .sc{color:var(--blue);font-style:italic}
+  .sent .line{border-bottom:1px solid var(--ink);height:16px;margin-top:3px;color:var(--ans);font-weight:700;font-size:12px}
+
+  /* código secreto */
+  .code-key{display:grid;grid-template-columns:repeat(13,1fr);border:1px solid var(--line);font-size:10.5px;margin-bottom:8px}
+  .code-key div{text-align:center;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:2px 0}
+  .code-key div b{display:block;color:var(--navy)}
+  .msg{display:flex;flex-wrap:wrap;gap:4px 14px}
+  .msg .word{display:flex;gap:3px}
+  .msg .cell{display:flex;flex-direction:column;align-items:center;font-size:10px;color:var(--muted)}
+  .msg .cell i{width:6mm;height:6.4mm;border-bottom:1.4px solid var(--ink);font-style:normal;text-align:center;font-weight:700;color:var(--ans);font-size:12.5px;line-height:6.4mm}
+
+  .bonus .lines div{border-bottom:1px solid var(--ink);height:18px}
+  .foot{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:4px}
+  .score{font-size:11px;font-weight:700;color:var(--navy);text-align:right;margin-top:8px}
+
+  body.pauta .hdr{background:#5b3f0d}
+  .pauta-flag{display:none}
+  body.pauta .pauta-flag{display:block;background:var(--ans);color:#fff;font-weight:700;font-size:11px;text-align:center;padding:4px;margin-top:6px;letter-spacing:.06em}
+
+  .err{max-width:600px;margin:60px auto;background:#fff;padding:30px;border-radius:12px;text-align:center}
+
+  @media print{
+    @page{size:letter;margin:9mm}
+    body{background:#fff}
+    .toolbar,.mode-note{display:none!important}
+    .sheet{width:auto;max-width:none;margin:0;padding:0;box-shadow:none}
+    .sheet + .sheet{break-before:page;page-break-before:always;margin-top:0}
+  }
+  @media (max-width:700px){
+    .un{grid-template-columns:1fr}
+    .sheet{padding:14px}
+    table.grid td{width:20px;height:20px;font-size:11px}
+    table.cw td{width:18px;height:18px}
+  }
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <div class="in">
+    <a class="back" href="../index.html#reemplazo">← Volver a las guías</a>
+    <div class="tb-actions">
+      <button class="tbtn print" id="btn-print" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        <span id="lbl-print">Imprimir guía</span></button>
+      <a class="tbtn key" id="btn-mode" href="#">Pauta docente</a>
+    </div>
+  </div>
+</div>
+<p class="mode-note" id="mode-note"></p>
+<div id="app"></div>
+
+<script src="guias.js"></script>
+<script>
+/* ===================== utilidades ===================== */
+function hashStr(s){let h=1779033703^s.length;for(let i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
+function rng(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+const clean=w=>w.toUpperCase().replace(/[^A-Z]/g,"");
+
+/* ===================== sopa de letras ===================== */
+function wordSearch(words,r,diag){
+  const ws=words.map(clean).sort((a,b)=>b.length-a.length);
+  let size=Math.max(12,ws[0].length+1);
+  const dirs=diag?[[0,1],[1,0],[1,1],[-1,1]]:[[0,1],[1,0]];
+  for(let tries=0;tries<40;tries++){
+    const g=Array.from({length:size},()=>Array(size).fill(""));
+    const pos=[];let ok=true;
+    for(const w of ws){
+      let placed=false;
+      for(let k=0;k<400&&!placed;k++){
+        const [dr,dc]=dirs[Math.floor(r()*dirs.length)];
+        const r0=Math.floor(r()*size),c0=Math.floor(r()*size);
+        const r1=r0+dr*(w.length-1),c1=c0+dc*(w.length-1);
+        if(r1<0||r1>=size||c1<0||c1>=size)continue;
+        let fits=true;
+        for(let i=0;i<w.length;i++){const ch=g[r0+dr*i][c0+dc*i];if(ch&&ch!==w[i]){fits=false;break}}
+        if(!fits)continue;
+        const cells=[];
+        for(let i=0;i<w.length;i++){g[r0+dr*i][c0+dc*i]=w[i];cells.push((r0+dr*i)+","+(c0+dc*i))}
+        pos.push(...cells);placed=true;
+      }
+      if(!placed){ok=false;break}
+    }
+    if(ok){
+      const AB="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      for(const row of g)for(let c=0;c<size;c++)if(!row[c])row[c]=AB[Math.floor(r()*26)];
+      return {g,hits:new Set(pos)};
+    }
+    if(tries%5===4)size++;
+  }
+  throw new Error("No se pudo generar la sopa de letras");
+}
+
+/* ===================== crucigrama ===================== */
+function crossword(entries,r){
+  let best=null;
+  for(let attempt=0;attempt<60;attempt++){
+    const list=attempt===0?entries.slice().sort((a,b)=>clean(b[0]).length-clean(a[0]).length)
+                           :[...shuffle(entries,r)].sort((a,b)=>(clean(b[0]).length-clean(a[0]).length)+(r()-.5)*6);
+    const cells=new Map();const placed=[];
+    const get=(y,x)=>cells.get(y+","+x);
+    function canPlace(w,y,x,dir){
+      const dy=dir==="D"?1:0,dx=dir==="A"?1:0;let inter=0;
+      if(get(y-dy,x-dx)||get(y+dy*w.length,x+dx*w.length))return -1;
+      for(let i=0;i<w.length;i++){
+        const cy=y+dy*i,cx=x+dx*i,ch=get(cy,cx);
+        if(ch){if(ch!==w[i])return -1;inter++;}
+        else{ if(get(cy+dx,cx+dy)||get(cy-dx,cx-dy))return -1; }
+      }
+      return inter;
+    }
+    function put(w,y,x,dir,clue){const dy=dir==="D"?1:0,dx=dir==="A"?1:0;for(let i=0;i<w.length;i++)cells.set((y+dy*i)+","+(x+dx*i),w[i]);placed.push({w,y,x,dir,clue})}
+    const first=clean(list[0][0]);put(first,0,0,"A",list[0][1]);
+    const pending=list.slice(1);
+    let progress=true;
+    while(pending.length&&progress){
+      progress=false;
+      for(let p=0;p<pending.length;p++){
+        const w=clean(pending[p][0]);let cand=[];
+        for(const pl of placed){
+          for(let i=0;i<pl.w.length;i++)for(let j=0;j<w.length;j++){
+            if(pl.w[i]!==w[j])continue;
+            const dir=pl.dir==="A"?"D":"A";
+            const iy=pl.y+(pl.dir==="D"?i:0),ix=pl.x+(pl.dir==="A"?i:0);
+            const y=iy-(dir==="D"?j:0),x=ix-(dir==="A"?j:0);
+            const sc=canPlace(w,y,x,dir);
+            if(sc>0)cand.push({y,x,dir,sc});
+          }
+        }
+        if(cand.length){
+          cand.sort((a,b)=>b.sc-a.sc||r()-.5);
+          const c=cand[0];put(w,c.y,c.x,c.dir,pending[p][1]);pending.splice(p,1);p--;progress=true;
+        }
+      }
+    }
+    let minY=1e9,minX=1e9,maxY=-1e9,maxX=-1e9;
+    for(const k of cells.keys()){const [y,x]=k.split(",").map(Number);minY=Math.min(minY,y);maxY=Math.max(maxY,y);minX=Math.min(minX,x);maxX=Math.max(maxX,x)}
+    const h=maxY-minY+1,w=maxX-minX+1;
+    const score=placed.length*1000-(Math.max(h,w)*20)-(h*w);
+    if(Math.max(h,w)>17)continue;
+    if(!best||score>best.score)best={score,placed,cells,minY,minX,h,w};
+    if(placed.length===entries.length&&attempt>20)break;
+  }
+  // numeración
+  const starts=best.placed.map(p=>({...p,y:p.y-best.minY,x:p.x-best.minX})).sort((a,b)=>a.y-b.y||a.x-b.x);
+  const num=new Map();let n=0;
+  for(const s of starts){const k=s.y+","+s.x;if(!num.has(k))num.set(k,++n);s.n=num.get(k)}
+  const grid=Array.from({length:best.h},()=>Array(best.w).fill(""));
+  for(const [k,ch] of best.cells){const [y,x]=k.split(",").map(Number);grid[y-best.minY][x-best.minX]=ch}
+  return {grid,num,words:starts};
+}
+
+/* ===================== render ===================== */
+const params=new URLSearchParams(location.search);
+const id=params.get("g");
+const isKey=params.get("pauta")==="1";
+const G=(typeof GUIAS_REEMPLAZO!=="undefined")?GUIAS_REEMPLAZO.find(x=>x.id===id):null;
+const app=document.getElementById("app");
+if(isKey)document.body.classList.add("pauta");
+
+function header(g,page,total){
+  return `<div class="hdr"><div><b>INSTITUTO MARÍTIMO DE VALPARAÍSO</b><small>Departamento de Inglés · English Department</small></div>
+    <div class="r"><b>${isKey?"PAUTA DOCENTE":"GUÍA DE REEMPLAZO"}</b><small>${g.n==="Todos"?"Todos los niveles":g.n+" Medio"} · ${g.c} · Hoja ${page}/${total}</small></div></div>
+    <div class="pauta-flag">HOJA DE RESPUESTAS — USO EXCLUSIVO DEL DOCENTE</div>`;
+}
+function foot(g){return `<div class="foot"><span>Guía de reemplazo · ${esc(g.t)}</span><span>Duración: 45 minutos</span></div>`}
+const boxes=(w,show)=>`<span class="boxes">${[...w].map(ch=>`<i>${show?ch:""}</i>`).join("")}</span>`;
+
+function build(g){
+  const R=rng(hashStr(g.id));
+  const diag=g.n!=="1°";
+  const vocab=g.vocab;
+  // 1 sopa
+  const ws=wordSearch(vocab.map(v=>v[0]),R,diag);
+  const wsHTML=`<table class="grid">${ws.g.map((row,y)=>`<tr>${row.map((ch,x)=>`<td class="${isKey&&ws.hits.has(y+","+x)?"hit":""}">${ch}</td>`).join("")}</tr>`).join("")}</table>`;
+  // 2 unscramble (8 palabras)
+  const unWords=shuffle(vocab,R).slice(0,8);
+  const unHTML=unWords.map((v,i)=>{
+    const w=clean(v[0]);let sc=w;for(let k=0;k<20&&sc===w;k++)sc=shuffle([...w],R).join("");
+    return `<div class="it"><span class="n">${i+1}.</span><span class="letters">${sc}</span><span class="hint">(${esc(v[2])})</span> ${boxes(w,isKey)}</div>`}).join("");
+  // 3 intrusos
+  const oddHTML=g.intrusos.map((grp,i)=>`<div class="row"><span class="un"><span class="n">${i+1}.</span></span>${shuffle(grp,R).map(w=>`<span class="w ${isKey&&w.startsWith("*")?"odd-ans":""}">${esc(w.replace("*",""))}</span>`).join("")}</div>`).join("");
+  // 4 crucigrama (10 palabras)
+  const cwEntries=vocab.slice(0,10);
+  const cw=crossword(cwEntries,R);
+  const cwHTML=`<table class="cw">${cw.grid.map((row,y)=>`<tr>${row.map((ch,x)=>{
+      if(!ch)return "<td></td>";const n=cw.num.get(y+","+x);
+      return `<td class="c">${n?`<sup>${n}</sup>`:""}${isKey?ch:""}</td>`}).join("")}</tr>`).join("")}</table>`;
+  const across=cw.words.filter(w=>w.dir==="A"),down=cw.words.filter(w=>w.dir==="D");
+  const clueList=l=>l.map(w=>`<li><b>${w.n}.</b> ${esc(w.clue)} <span style="color:var(--muted)">(${w.w.length})</span>${isKey?` <span class="a">${w.w}</span>`:""}</li>`).join("");
+  const missing=cwEntries.length-cw.words.length;
+  // 5 oraciones
+  const sentHTML=g.frases.map((s,i)=>{
+    const end=/[.?!]$/.test(s)?s.slice(-1):"";const words=s.replace(/[.?!]$/,"").split(" ");
+    let sc=words;for(let k=0;k<20&&sc.join(" ")===words.join(" ");k++)sc=shuffle(words,R);
+    return `<div class="it"><b style="color:var(--navy)">${i+1}.</b> <span class="sc">${esc(sc.join(" / "))} ${end}</span><div class="line">${isKey?esc(s):""}</div></div>`}).join("");
+  // 6 código secreto
+  const AB="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  const nums=shuffle(Array.from({length:26},(_,i)=>i+1),R);
+  const map={};AB.forEach((l,i)=>map[l]=nums[i]);
+  const keyHTML=AB.map(l=>`<div><b>${l}</b>${map[l]}</div>`).join("");
+  const msgHTML=g.codigo.split(" ").map(w=>`<div class="word">${[...clean(w)].map(ch=>`<div class="cell"><i>${isKey?ch:""}</i>${map[ch]}</div>`).join("")}</div>`).join("");
+
+  const nameBox=isKey?"":`<div class="namebox"><div><b>NOMBRE:</b> ________________________________</div><div><b>CURSO:</b> ________ <b>FECHA:</b> ________</div></div>`;
+  const intro=isKey?`<div class="intro"><b>Pauta para el docente.</b> Las respuestas aparecen en rojo. Sugerencia: revisar en voz alta los últimos 5 minutos o recoger las guías para revisión formativa (sin calificación). Si un estudiante termina antes, asignar el desafío extra de la hoja 2.</div>`
+   :`<div class="intro"><b>Instrucciones:</b> Esta guía es para trabajar en clase durante <b>45 minutos</b>. Resuelve las actividades en orden; puedes trabajar en silencio o en parejas si el profesor lo permite. Usa lápiz grafito y revisa tu ortografía. ¡Si terminas antes, haz el <b>Bonus challenge</b> al final!</div>`;
+
+  const page1=`<section class="sheet">${header(g,1,2)}${nameBox}
+    <h1>${esc(g.t)}</h1><p class="sub">${esc(g.d)}</p>${intro}
+    <div class="act"><div class="bar">1 · WORD SEARCH <span>⏱ 10 min</span></div>
+      <p class="instr">Find the ${vocab.length} words in the grid. ${diag?"Words go → ↓ and diagonally.":"Words go → and ↓."} Busca las palabras y enciérralas.</p>
+      <div class="ws-wrap">${wsHTML}<div class="wordlist">${vocab.map(v=>`<div>${esc(v[0])}</div>`).join("")}</div></div></div>
+    <div class="act"><div class="bar">2 · UNSCRAMBLE THE WORDS <span>⏱ 7 min</span></div>
+      <p class="instr">Order the letters to make a word. Ordena las letras; la pista en español te ayuda.</p>
+      <div class="un">${unHTML}</div></div>
+    <div class="act"><div class="bar">3 · ODD ONE OUT <span>⏱ 5 min</span></div>
+      <p class="instr">Circle the word that is different in each group. Encierra la palabra que no pertenece al grupo.</p>
+      <div class="odd">${oddHTML}</div></div>
+    ${foot(g)}</section>`;
+  const page2=`<section class="sheet">${header(g,2,2)}
+    <div class="act"><div class="bar">4 · CROSSWORD <span>⏱ 12 min</span></div>
+      <p class="instr">Read the clues and complete the crossword. Lee las definiciones y completa el crucigrama.</p>
+      <div class="cw-wrap">${cwHTML}<div class="clues"><h4>ACROSS →</h4><ol>${clueList(across)}</ol><h4>DOWN ↓</h4><ol>${clueList(down)}</ol></div></div></div>
+    <div class="act sent"><div class="bar">5 · SENTENCE SCRAMBLE <span>⏱ 7 min</span></div>
+      <p class="instr">Put the words in order to make sentences. Ordena las palabras para formar oraciones.</p>${sentHTML}</div>
+    <div class="act"><div class="bar">6 · SECRET CODE <span>⏱ 4 min</span></div>
+      <p class="instr">Use the key to discover the secret message. Usa la clave para descubrir el mensaje secreto.</p>
+      <div class="code-key">${keyHTML}</div><div class="msg">${msgHTML}</div></div>
+    <div class="act bonus"><div class="bar">★ BONUS CHALLENGE <span>si terminas antes</span></div>
+      <p class="instr">Write three sentences using words from this worksheet. Escribe 3 oraciones con palabras de esta guía.</p>
+      <div class="lines">${isKey?`<p style="font-size:11px;color:var(--ans);font-weight:600">Respuesta libre. Verificar uso correcto del vocabulario de la guía.</p>`:"<div></div><div></div><div></div>"}</div></div>
+    ${foot(g)}</section>`;
+  if(missing>0)console.warn("Crucigrama: palabras sin ubicar",missing);
+  return page1+page2;
+}
+
+if(!G){
+  app.innerHTML=`<div class="err"><h2>Guía no encontrada</h2><p>Vuelve al <a href="../index.html#reemplazo">listado de guías de reemplazo</a>.</p></div>`;
+  document.querySelector(".toolbar .tb-actions").style.display="none";
+}else{
+  document.title=`${isKey?"Pauta · ":""}${G.t} · Guía de reemplazo`;
+  app.innerHTML=build(G);
+  const other=new URLSearchParams({g:G.id});if(!isKey)other.set("pauta","1");
+  const bm=document.getElementById("btn-mode");
+  bm.href="guia.html?"+other.toString();
+  bm.textContent=isKey?"Ver guía del estudiante":"Pauta docente";
+  document.getElementById("lbl-print").textContent=isKey?"Imprimir pauta":"Imprimir guía";
+  document.getElementById("mode-note").textContent=isKey
+    ?"Estás viendo la pauta docente (respuestas en rojo). No la entregues a los estudiantes."
+    :"Vista del estudiante, sin respuestas. Usa “Imprimir guía” (2 hojas tamaño carta) y abre la pauta por separado.";
+  document.getElementById("btn-print").addEventListener("click",()=>window.print());
+  if(params.get("print")==="1")window.addEventListener("load",()=>setTimeout(()=>window.print(),400));
+}
+</script>
+</body>
+</html>
