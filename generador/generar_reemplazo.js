@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const root = path.resolve(__dirname, '..');
 const src = fs.readFileSync(path.join(root, 'reemplazo/guias.js'), 'utf8');
-const ids = [...src.matchAll(/\{ id:"([^"]+)"/g)].map(m => m[1]);
+const ids = process.argv[2] ? process.argv.slice(2) : [...src.matchAll(/\{ id:"([^"]+)"/g)].map(m => m[1]);
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage();

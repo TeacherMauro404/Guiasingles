@@ -115,11 +115,11 @@ const GUIAS_REEMPLAZO = [
   intrusos:[["always","often","never","*today"],["breakfast","lunch","dinner","*bed"],["wake up","get up","*go to bed","get dressed"],["shower","toothbrush","soap","*bus"],["morning","afternoon","*weekend","evening"]],
   codigo:"EARLY TO BED EARLY TO RISE" },
 
-{ id:"future-fun", t:"Future Fortune Tellers", n:"2°", c:"A2", d:"will / going to, planes y predicciones.",
-  vocab:[["FUTURE","The time after now.","futuro"],["TOMORROW","The day after today.","mañana (día)"],["PLAN","Something you decide to do.","plan"],["ROBOT","A machine that can work like a person.","robot"],["PROMISE","You say you will do something for sure.","promesa"],["PREDICT","To say what will happen.","predecir"],["NEXT","___ week, ___ year.","próximo"],["SOON","In a short time.","pronto"],["DREAM","Something you want very much.","sueño"],["SPACE","Rockets travel here.","espacio"],["CAREER","Your job for many years.","carrera"],["MAYBE","Perhaps.","quizás"]],
-  frases:["I'm going to study engineering.","I think robots will do many jobs.","I promise I will call you.","Look at the clouds; it's going to rain.","What are you going to do next summer?"],
-  intrusos:[["will","won't","going to","*did"],["tomorrow","next week","soon","*yesterday"],["plan","dream","goal","*past"],["I'll","you'll","she'll","*I'm"],["robot","computer","*horse","rocket"]],
-  codigo:"THE FUTURE IS YOURS" },
+{ id:"future-fun", t:"The Future with Will", n:"2°", c:"A2", d:"will / won't: predicciones, promesas, ofrecimientos y decisiones.",
+  vocab:[["FUTURE","The time after now.","futuro"],["TOMORROW","The day after today.","mañana (día)"],["ROBOT","A machine that can work like a person.","robot"],["PROMISE","When you say 'I will…' for sure.","promesa"],["PREDICT","To say what will happen.","predecir"],["PROBABLY","Almost sure; very likely.","probablemente"],["SOON","In a short time.","pronto"],["DREAM","Something you want very much in life.","sueño"],["SPACE","Rockets will travel here.","espacio"],["WORLD","The planet where we live.","mundo"],["MAYBE","Perhaps.","quizás"],["HELP","I'll ___ you with your bags.","ayudar"]],
+  frases:["I think robots will teach in schools.","I promise I will call you tonight.","It won't rain tomorrow.","Will people live on Mars?","I'll help you with your homework."],
+  intrusos:[["will","won't","'ll","*did"],["tomorrow","next year","in 2050","*yesterday"],["I think","maybe","probably","*last week"],["promise","offer","prediction","*memory"],["robot","computer","rocket","*horse"]],
+  codigo:"I WILL NEVER GIVE UP" },
 
 /* ===================== ESPECIAL MARÍTIMO · todos los niveles ===================== */
 { id:"ships-sea", t:"Ships & the Sea", n:"Todos", c:"A1–A2", d:"Vocabulario náutico: partes del barco y el mar.",
